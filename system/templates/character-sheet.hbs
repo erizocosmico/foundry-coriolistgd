@@ -1,0 +1,110 @@
+<form class='{{cssClass}} {{data.type}}' autocomplete='off'>
+  <header class='sheet-header'>
+    <img class='profile-img' src='{{data.img}}' data-edit='img' title='{{data.name}}' height='100' width='100' />
+    <div class='header-fields'>
+      <div class='field big centered'>
+        <label for='name'>{{loc 'name'}}</label>
+        <input name='name' type='text' value='{{data.name}}' placeholder='{{loc "name"}}' />
+      </div>
+
+      <div class='field centered'>
+        <label for='archetype'>{{loc 'archetype'}}</label>
+        <input name='system.archetype' type='text' value='{{systemData.archetype}}' placeholder='{{loc "archetype"}}' />
+      </div>
+    </div>
+  </header>
+
+  <section class='attributes'>
+    <h2>
+      <span>{{loc 'attributes.label'}}</span>
+      <button class='attributes-edit-switch'>
+        {{#if locked}}
+          <i class='fa fa-gear'></i>
+        {{else}}
+          <i class='fa fa-check'></i>
+        {{/if}}
+      </button>
+    </h2>
+    <div class='attributes-list'>
+      {{#each systemData.attributes as |val key|}}
+        <div class='attribute {{ifThen @root.locked "rollable" ""}}' data-attribute='{{key}}'>
+          <h4 class='attribute-title'>{{loc 'attributes' key 'name'}}</h4>
+          {{#if @root.locked}}
+            <span class='attribute-value'>{{val.value}}</span>
+          {{else}}
+            <div class='attribute-edit'>
+              <button class='attribute-minus' data-attribute='{{key}}'>
+                <i class='fa fa-minus'></i>
+              </button>
+              {{numberInput val.value name=(concat 'system.attributes.' key '.value') step=1 min=2 max=6}}
+              <button class='attribute-plus' data-attribute='{{key}}'>
+                <i class='fa fa-plus'></i>
+              </button>
+            </div>
+          {{/if}}
+
+          <div class='attribute-condition {{ifThen val.condition "marked" ""}}' data-attribute='{{key}}'></div>
+          <h5 class='attribute-condition-label'>{{loc 'attributes' key 'condition'}}</h5>
+        </div>
+      {{/each}}
+    </div>
+  </section>
+
+  <div class='sheet-content-wrap'>
+    <aside class='character-sidebar'>
+      {{#each stats as |s|}}
+        <div class='stat'>
+          <div class='stat-name'>{{s.label}}</div>
+          <div class='stat-value'>{{s.value}}</div>
+          <div class='stat-counter'>
+            {{#each (range 1 s.max) as |i|}}
+              <div
+                class='stat-counter-dot {{ifThen (gte s.value i) "active" ""}}'
+                data-value='{{i}}'
+                data-stat='{{s.key}}'
+              ></div>
+            {{/each}}
+          </div>
+        </div>
+      {{/each}}
+
+      <div class='stat'>
+        <div class='stat-name'>{{loc "character.experience"}}</div>
+        <div class='stat-value'>
+          {{numberInput systemData.experience name='system.experience' step=1 min=0 max=99}}
+        </div>
+      </div>
+
+      <div class='stat'>
+        <div class='stat-name'>{{loc "supply"}}</div>
+        <div class='stat-value'>
+          {{numberInput systemData.supply name='system.supply' step=1 min=0 max=99}}
+        </div>
+      </div>
+    </aside>
+
+    <section class='sheet-content'>
+      <nav class='sheet-tabs tabs' data-group='primary'>
+        <a class='item' data-tab='overview'>Overview</a>
+        <a class='item' data-tab='talents'>Talents</a>
+        <a class='item' data-tab='gear'>Gear</a>
+        <a class='item' data-tab='bio'>Bio</a>
+      </nav>
+
+      <div class='sheet-body'>
+        <div class='tab overview' data-group='primary' data-tab='overview'>
+          {{> (partial "character" "overview")}}
+        </div>
+        <div class='tab bio' data-group='primary' data-tab='bio'>
+          {{> (partial "character" "bio")}}
+        </div>
+        <div class='tab talents' data-group='primary' data-tab='talents'>
+          {{> (partial "character" "talents")}}
+        </div>
+        <div class='tab gear' data-group='primary' data-tab='gear'>
+          {{> (partial "character" "gear")}}
+        </div>
+      </div>
+    </section>
+  </div>
+</form>

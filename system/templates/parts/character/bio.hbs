@@ -1,0 +1,31 @@
+<div class='field-group'>
+  <div class='field'>
+    <label for='system.crew_role'>{{loc 'character.crew_role'}}</label>
+    <input type='text' name='system.crew_role' value='{{systemData.crew_role}}' />
+  </div>
+
+  <div class='field'>
+    <label for='system.previous_occupation'>{{loc 'character.previous_occupation'}}</label>
+    <input type='text' name='system.previous_occupation' value='{{systemData.previous_occupation}}' />
+  </div>
+</div>
+
+<div class='field'>
+  <label for='system.quirk'>{{loc 'character.quirk'}}</label>
+  <textarea name='system.quirk'>{{systemData.quirk}}</textarea>
+</div>
+
+<div class='field'>
+  <label for='system.appearance'>{{loc 'character.appearance'}}</label>
+  <textarea name='system.appearance'>{{systemData.appearance}}</textarea>
+</div>
+
+<div class='field'>
+  <label for='system.keepsake'>{{loc 'character.keepsake'}}</label>
+  <input type='text' name='system.keepsake' value='{{systemData.keepsake}}' />
+</div>
+
+<div class='field'>
+  <label>{{loc 'notes'}}</label>
+  {{editor content=systemData.notes target='system.notes' rollData=rollData button=true owner=owner editable=editable}}
+</div>

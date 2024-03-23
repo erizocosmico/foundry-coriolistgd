@@ -1,0 +1,145 @@
+{
+  "Actor": {
+    "types": ["character", "crew", "npc"],
+    "htmlFields": ["notes", "appearance", "quirk"],
+    "character": {
+      "archetype": "",
+      "health": {
+        "value": 0,
+        "max": 4
+      },
+      "hope": {
+        "value": 0,
+        "max": 4
+      },
+      "heart": {
+        "value": 0,
+        "max": 4
+      },
+      "experience": 0,
+      "attributes": {
+        "strength": {
+          "value": 2,
+          "condition": false
+        },
+        "agility": {
+          "value": 2,
+          "condition": false
+        },
+        "insight": {
+          "value": 2,
+          "condition": false
+        },
+        "logic": {
+          "value": 2,
+          "condition": false
+        },
+        "perception": {
+          "value": 2,
+          "condition": false
+        },
+        "empathy": {
+          "value": 2,
+          "condition": false
+        }
+      },
+      "crew_role": "",
+      "previous_occupation": "",
+      "quirk": "",
+      "appearance": "",
+      "keepsake": "",
+      "notes": "",
+      "ferocity": 1,
+      "supply": 0
+    },
+    "crew": {
+      "explorers": [],
+      "supply": {
+        "value": 0,
+        "max": 0
+      },
+      "bird": {
+        "name": "Bird",
+        "appearance": "",
+        "health": {
+          "value": 0,
+          "max": 0
+        },
+        "energy": {
+          "value": 0,
+          "max": 0
+        }
+      },
+      "notes": ""
+    },
+    "npc": {
+      "notes": "",
+      "attributes": {
+        "strength": 3,
+        "agility": 3,
+        "insight": 3,
+        "logic": 3,
+        "perception": 3,
+        "empathy": 3
+      },
+      "health": {
+        "max": 0,
+        "value": 0
+      },
+      "ferocity": 1
+    }
+  },
+  "Item": {
+    "types": ["gear", "weapon", "armor", "talent", "bird_ability", "injury"],
+    "htmlFields": ["description"],
+    "gear": {
+      "description": "",
+      "quantity": 1,
+      "weight": 1,
+      "bonus": 0,
+      "attribute": "",
+      "equipped": false
+    },
+    "weapon": {
+      "description": "",
+      "type": "melee",
+      "features": "",
+      "range": "",
+      "bonus": 0,
+      "damage": 1,
+      "crit": 0,
+      "weight": 1,
+      "equipped": false,
+      "at_hand": false
+    },
+    "armor": {
+      "description": "",
+      "features": "",
+      "blight_protection": 0,
+      "rating": 0,
+      "weight": 1,
+      "worn": false
+    },
+    "talent": {
+      "description": "",
+      "level": 1,
+      "bonus": 0,
+      "attribute": ""
+    },
+    "bird_ability": {
+      "bonus": 0,
+      "range": "",
+      "energy": 0,
+      "description": "",
+      "failed_effect": ""
+    },
+    "injury": {
+      "lethal": false,
+      "type": "physical",
+      "limit": "",
+      "effects": "",
+      "recovery": "",
+      "description": ""
+    }
+  }
+}

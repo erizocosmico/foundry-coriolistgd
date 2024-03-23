@@ -1,0 +1,10 @@
+<form autocomplete='off'>
+  <div class='attribute-selector'>
+    {{#each attributes as |a|}}
+      <div class='attribute-selector-attr' data-attr='{{a.id}}'>
+        <div class='attribute-selector-attr-label'>{{loc 'attributes' a.id 'name'}}</div>
+        <div class='attribute-selector-attr-value'>{{a.value}}</div>
+      </div>
+    {{/each}}
+  </div>
+</form>

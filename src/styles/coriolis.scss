@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,40&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap');
+
+@import 'utils/typography';
+@import 'utils/variables';
+
+.system-coriolistgd {
+    font-family: $font-serif;
+
+    @import 'global/window';
+    @import 'global/hud';
+
+    @import 'components/sheet';
+    @import 'components/field';
+    @import 'components/roll';
+    @import 'components/message';
+}

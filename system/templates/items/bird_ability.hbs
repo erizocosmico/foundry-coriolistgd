@@ -1,0 +1,46 @@
+<form class='{{cssClass}}' autocomplete='off'>
+  <header class='sheet-header'>
+    <img src='{{item.img}}' class='item-img' data-edit='img' title='{{item.name}}' />
+    <div class='field big'>
+      <input name='name' type='text' value='{{item.name}}' placeholder='{{loc "name"}}' />
+    </div>
+  </header>
+
+  <section>
+    <div class='field-group'>
+      <div class='field centered'>
+        <label for='system.bonus'>{{loc 'birds.bonus'}}</label>
+        <select name='system.bonus' data-dtype='Number'>
+          {{selectOptions bonuses selected=systemData.bonus}}
+        </select>
+      </div>
+
+      <div class='field centered'>
+        <label for='system.energy'>{{loc 'birds.energy'}}</label>
+        {{numberInput systemData.energy name='system.energy' step=1 min=0 max=9}}
+      </div>
+
+      <div class='field centered'>
+        <label for='system.range'>{{loc 'ranges.label'}}</label>
+        <select name='system.range'>
+          {{selectOptions ranges selected=systemData.range}}
+        </select>
+      </div>
+    </div>
+    <div class='field centered'>
+      <label for='system.effect'>{{loc 'birds.effect'}}</label>
+      <textarea name='system.effect'>{{systemData.effect}}</textarea>
+    </div>
+    <div class='field'>
+      <label>{{loc 'description'}}</label>
+      {{editor
+        content=systemData.description
+        target='system.description'
+        rollData=rollData
+        button=true
+        owner=owner
+        editable=editable
+      }}
+    </div>
+  </section>
+</form>

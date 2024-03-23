@@ -1,0 +1,71 @@
+<form autocomplete='off'>
+  <div class='roll-dices'>
+    <div class='roll-dice'>
+      <h4>{{loc 'rolls.base'}}</h4>
+      <div class='roll-dice-counter'>
+        <button class='roll-dice-counter-btn' data-delta='-1' data-dice='base'>
+          <i class='fa fa-minus'></i>
+        </button>
+        <div class='roll-dice-counter-value base' id='roll-base-dice'>0</div>
+        <button class='roll-dice-counter-btn' data-delta='1' data-dice='base'>
+          <i class='fa fa-plus'></i>
+        </button>
+      </div>
+
+      <ul class='roll-dice-info'>
+        <li>
+          <div class='roll-dice-info-label'>{{loc 'attributes' attribute 'name'}}</div>
+          <div class='roll-dice-info-value'>{{baseDice}}</div>
+        </li>
+        {{#if isTalent}}
+          <li>
+            <div class='roll-dice-info-label'>{{loc 'rolls.talent'}}</div>
+            <div class='roll-dice-info-value'>{{talentMod}}</div>
+          </li>
+        {{/if}}
+        <li>
+          <div class='roll-dice-info-label'>{{loc 'rolls.modifier'}}</div>
+          <div class='roll-dice-info-value roll-dice-base-modifier'>0</div>
+        </li>
+        {{#if condition}}
+          <li>
+            <div class='roll-dice-info-label'>{{loc 'attributes' attribute 'condition'}}</div>
+            <div class='roll-dice-info-value'>-2</div>
+          </li>
+        {{/if}}
+        <li>
+          <div class='roll-dice-info-label'>{{loc 'rolls.total'}}</div>
+          <div class='roll-dice-info-value roll-dice-base-total'>{{baseTotal}}</div>
+        </li>
+      </ul>
+    </div>
+
+    <div class='roll-dice'>
+      <h4>{{loc 'rolls.gear'}}</h4>
+      <div class='roll-dice-counter'>
+        <button class='roll-dice-counter-btn' data-delta='-1' data-dice='gear'>
+          <i class='fa fa-minus'></i>
+        </button>
+        <div class='roll-dice-counter-value gear' id='roll-gear-dice'>0</div>
+        <button class='roll-dice-counter-btn' data-delta='1' data-dice='gear'>
+          <i class='fa fa-plus'></i>
+        </button>
+      </div>
+
+      <ul class='roll-dice-info'>
+        <li>
+          <div class='roll-dice-info-label'>{{loc 'rolls.item'}}</div>
+          <div class='roll-dice-info-value'>{{gearDice}}</div>
+        </li>
+        <li>
+          <div class='roll-dice-info-label'>{{loc 'rolls.modifier'}}</div>
+          <div class='roll-dice-info-value roll-dice-gear-modifier'>0</div>
+        </li>
+        <li>
+          <div class='roll-dice-info-label'>{{loc 'rolls.total'}}</div>
+          <div class='roll-dice-info-value roll-dice-gear-total'>{{gearDice}}</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</form>

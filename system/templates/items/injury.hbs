@@ -1,0 +1,52 @@
+<form class='{{cssClass}}' autocomplete='off'>
+  <header class='sheet-header'>
+    <img src='{{item.img}}' class='item-img' data-edit='img' title='{{item.name}}' />
+    <div class='field big'>
+      <input name='name' type='text' value='{{item.name}}' placeholder='{{loc "name"}}' />
+    </div>
+  </header>
+
+  <section>
+    <div class='field centered'>
+      <label for='system.type'>{{loc 'injuries.type'}}</label>
+      <div class='field-radio'>
+        {{radioBoxes 'system.type' injuryTypes checked=systemData.type localize=false}}
+      </div>
+    </div>
+    <div class='field-group'>
+      {{#if (eq systemData.type 'physical')}}
+        <div class='field width-small'>
+          <label for='system.lethal'>{{loc 'injuries.lethal'}}</label>
+          <select name='system.lethal' data-dtype='Number'>
+            {{selectOptions yesOrNo selected=systemData.lethal}}
+          </select>
+        </div>
+
+        <div class='field'>
+          <label for='system.limit'>{{loc 'injuries.limit'}}</label>
+          <input name='system.limit' type='text' value='{{systemData.limit}}' placeholder='{{loc "injuries.limit"}}' />
+        </div>
+      {{/if}}
+
+      <div class='field'>
+        <label for='system.recovery'>{{loc 'injuries.recovery'}}</label>
+        <input
+          name='system.recovery'
+          type='text'
+          value='{{systemData.recovery}}'
+          placeholder='{{loc "injuries.recovery"}}'
+        />
+      </div>
+    </div>
+    <div class='field'>
+      <label for='system.effect'>{{loc 'injuries.effect'}}</label>
+      <textarea name='system.effect'>{{systemData.effect}}</textarea>
+    </div>
+    {{#if (eq systemData.type 'blight')}}
+      <div class='field'>
+        <label for='system.description'>{{loc 'description'}}</label>
+        <textarea name='system.description'>{{systemData.description}}</textarea>
+      </div>
+    {{/if}}
+  </section>
+</form>

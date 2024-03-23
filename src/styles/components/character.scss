@@ -1,0 +1,479 @@
+.attributes {
+    padding-top: 0.7rem;
+    h2 {
+        color: $color-gold;
+        border: none;
+        text-transform: uppercase;
+        letter-spacing: 0.1rem;
+        text-align: center;
+        font-weight: bold;
+        font-size: 0.9rem;
+
+        span {
+            padding-left: 25px;
+        }
+    }
+
+    &-edit-switch {
+        border: none;
+        color: $color-gold;
+        width: 25px;
+        height: 20px;
+
+        &:hover,
+        &:focus {
+            color: $color-beige;
+            box-shadow: none;
+        }
+    }
+
+    &-list {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .attribute {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        position: relative;
+
+        &.rollable {
+            cursor: pointer;
+        }
+
+        &-title {
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+            font-weight: bold;
+            font-size: 0.7rem;
+        }
+
+        &-value,
+        &-edit input {
+            background-color: $color-beige;
+            color: $color-black;
+            font-size: 2rem;
+            font-weight: bold;
+            font-family: $font-sans;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid $color-black;
+            outline: 1px solid $color-gold;
+            flex-shrink: 0;
+        }
+
+        &-edit {
+            display: flex;
+
+            .attribute-plus,
+            .attribute-minus {
+                color: $color-gold;
+                border: none;
+
+                &:hover,
+                &:focus {
+                    color: $color-beige;
+                    box-shadow: none;
+                }
+            }
+        }
+
+        &-condition {
+            background-color: $color-beige;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            border: 2px solid $color-black;
+            outline: 1px solid $color-gold;
+            margin-top: -7px;
+            cursor: pointer;
+
+            &.marked {
+                background-color: $color-gold-darker;
+            }
+
+            &-label {
+                margin: 0;
+                padding: 0.2rem 0 0 0;
+                font-weight: normal;
+                text-transform: uppercase;
+                font-size: 0.6rem;
+                letter-spacing: 0.1rem;
+                cursor: initial;
+                pointer-events: none;
+            }
+        }
+
+        & + .attribute:before {
+            content: ' ';
+            position: absolute;
+            top: 30px;
+            bottom: 30px;
+            width: 1px;
+            left: -0.5rem;
+            background-color: transparentize($color-gold, 0.7);
+        }
+    }
+}
+
+.sheet-content-wrap {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+
+    .sheet-content {
+        flex: 1;
+        width: 100%;
+    }
+}
+
+.character-sidebar {
+    width: 210px;
+    margin-bottom: 1rem;
+}
+
+.stat {
+    padding: 5px 0;
+    position: relative;
+    &-name {
+        text-transform: uppercase;
+        color: $color-gold;
+        font-weight: bold;
+        letter-spacing: 0.08rem;
+        border: 1px solid $color-gold;
+        padding: 0 0.5rem;
+        margin-right: 20px;
+        line-height: 30px;
+    }
+
+    &-value {
+        background: $color-beige;
+        border: 2px solid black;
+        outline: 1px solid $color-gold;
+        color: black;
+        text-align: center;
+        border-radius: 50%;
+        line-height: 35px;
+        width: 40px;
+        min-width: 40px;
+        height: 40px;
+        position: absolute;
+        right: 0;
+        top: 1px;
+        font-size: 1.2rem;
+
+        &,
+        & > input {
+            font-weight: bold;
+            font-family: $font-sans;
+        }
+
+        input {
+            background: transparent;
+            border: none;
+
+            &:focus,
+            &:hover {
+                box-shadow: none;
+            }
+        }
+    }
+
+    &-counter {
+        padding-top: 0.5rem;
+        margin-right: 35px;
+        display: flex;
+        gap: 0.3rem;
+        flex-wrap: wrap;
+
+        &-dot {
+            height: 15px;
+            width: 15px;
+            border: 1px solid $color-gold;
+            border-radius: 50%;
+            cursor: pointer;
+
+            &:hover {
+                background-color: transparentize($color-gold, 0.7);
+            }
+
+            &.active {
+                background-color: $color-gold;
+
+                &:hover {
+                    background-color: transparentize($color-gold, 0.4);
+                }
+            }
+        }
+    }
+
+    & + .stat {
+        margin-top: 0.2rem;
+    }
+}
+
+.add-item {
+    border: none;
+    color: $color-gold;
+    padding: 0.2rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    gap: 0.3rem;
+
+    span {
+        font-family: $font-serif;
+        text-transform: uppercase;
+        letter-spacing: 0.05rem;
+        font-weight: bold;
+    }
+
+    &:hover,
+    &:focus {
+        color: $color-gold-dark;
+        text-shadow: 0 0 5px $color-gold;
+        box-shadow: none;
+    }
+}
+
+.tab.gear,
+.tab.overview {
+    h2 {
+        position: relative;
+        border: none;
+        margin: 0;
+        padding: 0;
+        line-height: 1rem;
+        display: flex;
+        justify-content: center;
+
+        span {
+            text-transform: uppercase;
+            letter-spacing: 0.05rem;
+            font-weight: bold;
+            color: $color-gold;
+            line-height: 1rem;
+            font-size: 0.9rem;
+            background-color: $color-black;
+            padding: 0 0.5rem;
+            z-index: 2;
+        }
+
+        &:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0.5rem;
+            height: 1px;
+            background-color: transparentize($color-gold, 0.7);
+            z-index: 1;
+        }
+    }
+
+    * + h2 {
+        margin-top: 1rem;
+    }
+}
+
+.item-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    .item {
+        padding: 0.5rem 0;
+        position: relative;
+
+        &:hover {
+            background-color: transparentize($color-gold, 0.9);
+        }
+
+        &-actions {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 0.5rem;
+            gap: 0.3rem;
+
+            .item-action {
+                border: 1px solid $color-gold;
+                background-color: $color-black;
+                border-radius: 50%;
+                color: $color-gold;
+                height: 30px;
+                width: 30px;
+                box-shadow: 0 0 20px $color-black;
+
+                &:hover,
+                &:focus {
+                    text-shadow: 0 0 5px $color-gold-dark;
+                    box-shadow: 0 0 5px $color-gold-dark;
+                }
+
+                i {
+                    margin-left: 3px;
+
+                    &.fa-dice,
+                    &.fa-shirt {
+                        margin-left: 1px;
+                    }
+                }
+            }
+        }
+
+        &-img {
+            height: 30px;
+            width: 30px;
+            border: 2px solid $color-black;
+            outline: 1px solid $color-gold;
+            border-radius: 0;
+            margin-top: 5px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            i {
+                font-size: 1.2rem;
+                color: $color-gold;
+            }
+
+            &-rollable {
+                cursor: pointer;
+            }
+        }
+
+        &-header {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        &-features {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        &-feature {
+            border: 1px solid transparentize($color-gold, 0.6);
+            border-radius: 15px;
+            font-family: $font-sans;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            display: flex;
+            flex-shrink: 0;
+
+            &-label {
+                font-weight: bold;
+                color: $color-gold;
+
+                & + .item-feature-value {
+                    border-left: 1px solid transparentize($color-gold, 0.6);
+                }
+            }
+
+            &-value,
+            &-label {
+                padding: 0.1rem 0.5rem;
+            }
+        }
+
+        &-name {
+            & + .item-features {
+                margin-top: 0.2rem;
+            }
+        }
+
+        &:hover .item-actions {
+            display: flex;
+        }
+
+        &-title {
+            margin: 0;
+            padding: 0;
+            border: none;
+            color: $color-gold;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 0.08rem;
+            line-height: 1.2rem;
+            font-size: 0.9rem;
+            gap: 0.5rem;
+            display: flex;
+            align-items: center;
+
+            a {
+                color: $color-gold;
+                text-decoration: none;
+
+                &:hover {
+                    text-shadow: 0 0 6px $color-gold-dark;
+                }
+            }
+        }
+
+        &-info {
+            flex: 1;
+        }
+
+        & + .item {
+            border-top: 1px solid transparentize($color-gold, 0.8);
+        }
+
+        &-description {
+            flex: 0 0 100%;
+            width: 100%;
+        }
+    }
+}
+
+.encumbrance {
+    border: 2px solid $color-black;
+    outline: 1px solid transparentize($color-gold, 0.6);
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+
+    &-bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 1;
+
+        &-max {
+            background-color: $color-red;
+        }
+
+        &-high {
+            background-color: $color-orange;
+        }
+
+        &-medium {
+            background-color: $color-yellow;
+        }
+
+        &-low {
+            background-color: $color-green;
+        }
+    }
+
+    span {
+        z-index: 2;
+        padding: 0.2rem 0.5rem;
+        font-weight: bold;
+        font-family: $font-sans;
+        text-shadow: 0 0 1px $color-black;
+    }
+}

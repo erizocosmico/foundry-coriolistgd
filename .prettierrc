@@ -1,0 +1,28 @@
+{
+    "printWidth": 100,
+    "tabWidth": 4,
+    "useTabs": false,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "bracketSpacing": false,
+    "jsxBracketSameLine": true,
+    "arrowParens": "always",
+    "requirePragma": false,
+    "proseWrap": "never",
+    "overrides": [
+        {
+            "files": "**/*.hbs",
+            "options": {
+                "tabWidth": 2,
+                "printWidth": 120
+            }
+        },
+        {
+            "files": "**/*.json",
+            "options": {
+                "tabWidth": 2
+            }
+        }
+    ]
+}

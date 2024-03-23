@@ -1,0 +1,255 @@
+<h2><span>{{loc 'gear.label'}}</span></h2>
+{{#hasItems gear}}
+  <ul class='item-list'>
+    {{#each gear as |g|}}
+      <li class='item'>
+        <div class='item-header'>
+          <img
+            src='{{g.img}}'
+            title='{{g.name}}'
+            class='item-img {{ifThen g.system.bonus "item-img-rollable roll-item" ""}}'
+            data-id='{{g._id}}'
+          />
+          <div class='item-info'>
+            <div class='item-name'>{{g.name}}</div>
+            <div class='item-features'>
+              <div class='item-feature'>
+                <span class='item-feature-label'>{{loc 'gear.quantity_abbr'}}</span>
+                <span class='item-feature-value'>{{g.system.quantity}}</span>
+              </div>
+
+              {{#if g.system.bonus}}
+                <div class='item-feature'>
+                  <span class='item-feature-label'>{{loc 'gear.bonus'}}</span>
+                  <span class='item-feature-value'>+{{g.system.bonus}}{{#if g.system.attribute}}
+                      {{loc 'to'}}
+                      {{loc 'attributes' g.system.attribute 'name'}}{{/if}}</span>
+                </div>
+              {{/if}}
+              <div class='item-feature'>
+                <span class='item-feature-label'>{{loc 'gear.weight'}}</span>
+                <span class='item-feature-value'>{{g.system.weight}}</span>
+              </div>
+
+              {{#if g.system.equipped}}
+                <div class='item-status' title='{{loc "gear.equipped"}}'>
+                  <i class='fa fa-box'></i>
+                </div>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+        <div class='item-actions'>
+          {{#if g.system.bonus}}
+            <button class='item-action roll-item' data-type='gear' data-id='{{g._id}}' title='{{loc "roll"}}'>
+              <i class='fa fa-dice'></i>
+            </button>
+          {{/if}}
+          <button
+            class='item-action toggle-item'
+            data-prop='equipped'
+            data-id='{{g._id}}'
+            title='{{ifThen g.system.equipped (loc "gear.unequip") (loc "gear.equip")}}'
+          >
+            <i class='fa fa-{{ifThen g.system.equipped "xmark" "box"}}'></i>
+          </button>
+          <button class='item-action show-item' data-type='gear' data-id='{{g._id}}' title='{{loc "post_to_chat"}}'>
+            <i class='fa fa-comment'></i>
+          </button>
+          <button class='item-action edit-item' data-type='gear' data-id='{{g._id}}' title='{{loc "edit"}}'>
+            <i class='fa fa-edit'></i>
+          </button>
+          <button class='item-action delete-item' data-type='gear' data-id='{{g._id}}' title='{{loc "delete"}}'>
+            <i class='fa fa-trash'></i>
+          </button>
+        </div>
+      </li>
+    {{/each}}
+  </ul>
+{{/hasItems}}
+<button class='add-item' data-type='gear'>
+  <i class='fa fa-plus'></i>
+  <span>{{loc 'gear.add'}}</span>
+</button>
+
+<h2><span>{{loc 'gear.weapons.label'}}</span></h2>
+{{#hasItems weapons}}
+  <ul class='item-list'>
+    {{#each weapons as |g|}}
+      <li class='item'>
+        <div class='item-header'>
+          <img src='{{g.img}}' title='{{g.name}}' class='item-img item-img-rollable roll-item' data-id='{{g._id}}' />
+          <div class='item-info'>
+            <div class='item-name'>{{g.name}}</div>
+            <div class='item-features'>
+              <div class='item-feature'>
+                <span class='item-feature-label'>{{loc 'gear.bonus'}}</span>
+                <span class='item-feature-value'>{{#if g.system.bonus}}+{{g.system.bonus}}{{else}}-{{/if}}</span>
+              </div>
+
+              <div class='item-feature'>
+                <span class='item-feature-label'>{{loc 'gear.weapons.damage_abbr'}}</span>
+                <span class='item-feature-value'>{{#if g.system.damage}}{{g.system.damage}}{{else}}-{{/if}}</span>
+              </div>
+
+              <div class='item-feature'>
+                <span class='item-feature-label'>{{loc 'gear.weapons.crit'}}</span>
+                <span class='item-feature-value'>{{#if g.system.crit}}{{g.system.crit}}{{else}}-{{/if}}</span>
+              </div>
+
+              <div class='item-feature'>
+                <span class='item-feature-label'>{{loc 'ranges.label'}}</span>
+                <span class='item-feature-value'>{{#if g.system.range}}{{loc
+                      'ranges'
+                      g.system.range
+                    }}{{else}}-{{/if}}</span>
+              </div>
+
+              <div class='item-feature'>
+                <span class='item-feature-label'>{{loc 'gear.weight'}}</span>
+                <span class='item-feature-value'>{{g.system.weight}}</span>
+              </div>
+
+              {{#each (features g.system.features) as |f|}}
+                <div class='item-feature'>
+                  <span class='item-feature-value'>{{f}}</span>
+                </div>
+              {{/each}}
+
+              {{#if g.system.equipped}}
+                <div class='item-status' title='{{loc "gear.equipped"}}'>
+                  <i class='fa fa-box'></i>
+                </div>
+              {{/if}}
+
+              {{#if g.system.at_hand}}
+                <div class='item-status' title='{{loc "gear.weapons.at_hand"}}'>
+                  <i class='fa fa-hand'></i>
+                </div>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+        <div class='item-actions'>
+          <button class='item-action roll-item' data-type='gear' data-id='{{g._id}}' title='{{loc "roll"}}'>
+            <i class='fa fa-dice'></i>
+          </button>
+
+          <button
+            class='item-action toggle-item'
+            data-prop='at_hand'
+            data-id='{{g._id}}'
+            title='{{ifThen g.system.at_hand (loc "gear.weapons.move_to_inventory") (loc "gear.weapons.carry_hand")}}'
+          >
+            <i class='fa fa-{{ifThen g.system.at_hand "box" "hand"}}'></i>
+          </button>
+
+          {{#unless g.system.at_hand}}
+            <button
+              class='item-action toggle-item'
+              data-prop='equipped'
+              data-id='{{g._id}}'
+              title='{{ifThen g.system.equipped (loc "gear.unequip") (loc "gear.equip")}}'
+            >
+              <i class='fa fa-{{ifThen g.system.equipped "xmark" "box"}}'></i>
+            </button>
+          {{/unless}}
+          <button class='item-action show-item' data-type='gear' data-id='{{g._id}}' title='{{loc "post_to_chat"}}'>
+            <i class='fa fa-comment'></i>
+          </button>
+          <button class='item-action edit-item' data-type='gear' data-id='{{g._id}}' title='{{loc "edit"}}'>
+            <i class='fa fa-edit'></i>
+          </button>
+          <button class='item-action delete-item' data-type='gear' data-id='{{g._id}}' title='{{loc "delete"}}'>
+            <i class='fa fa-trash'></i>
+          </button>
+        </div>
+      </li>
+    {{/each}}
+  </ul>
+{{/hasItems}}
+<button class='add-item' data-type='weapon'>
+  <i class='fa fa-plus'></i>
+  <span>{{loc 'gear.weapons.add'}}</span>
+</button>
+
+<h2><span>{{loc 'gear.armor.label'}}</span></h2>
+{{#hasItems armor}}
+  <ul class='item-list'>
+    {{#each armor as |g|}}
+      <li class='item'>
+        <div class='item-header'>
+          <img src='{{g.img}}' title='{{g.name}}' class='item-img item-img-rollable roll-item' data-id='{{g._id}}' />
+          <div class='item-info'>
+            <div class='item-name'>{{g.name}}</div>
+            <div class='item-features'>
+              <div class='item-feature'>
+                <span class='item-feature-label'>{{loc 'gear.armor.rating'}}</span>
+                <span class='item-feature-value'>{{#if g.system.rating}}{{g.system.rating}}{{else}}-{{/if}}</span>
+              </div>
+
+              <div class='item-feature'>
+                <span class='item-feature-label'>{{loc 'gear.armor.blight_protection'}}</span>
+                <span class='item-feature-value'>{{#if
+                    g.system.blight_protection
+                  }}{{g.system.blight_protection}}{{else}}-{{/if}}</span>
+              </div>
+
+              <div class='item-feature'>
+                <span class='item-feature-label'>{{loc 'gear.weight'}}</span>
+                <span class='item-feature-value'>{{g.system.weight}}</span>
+              </div>
+
+              {{#each (features g.system.features) as |f|}}
+                <div class='item-feature'>
+                  <span class='item-feature-value'>{{f}}</span>
+                </div>
+              {{/each}}
+
+              {{#if g.system.worn}}
+                <div class='item-status' title='{{loc "gear.armor.worn"}}'>
+                  <i class='fa fa-shirt'></i>
+                </div>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+        <div class='item-actions'>
+          <button class='item-action roll-item' data-type='gear' data-id='{{g._id}}' title='{{loc "roll"}}'>
+            <i class='fa fa-dice'></i>
+          </button>
+          <button
+            class='item-action toggle-item'
+            data-prop='worn'
+            data-id='{{g._id}}'
+            title='{{ifThen g.system.worn (loc "gear.armor.remove") (loc "gear.armor.wear")}}'
+          >
+            <i class='fa fa-{{ifThen g.system.worn "xmark" "shirt"}}'></i>
+          </button>
+          <button class='item-action show-item' data-type='gear' data-id='{{g._id}}' title='{{loc "post_to_chat"}}'>
+            <i class='fa fa-comment'></i>
+          </button>
+          <button class='item-action edit-item' data-type='gear' data-id='{{g._id}}' title='{{loc "edit"}}'>
+            <i class='fa fa-edit'></i>
+          </button>
+          <button class='item-action delete-item' data-type='gear' data-id='{{g._id}}' title='{{loc "delete"}}'>
+            <i class='fa fa-trash'></i>
+          </button>
+        </div>
+      </li>
+    {{/each}}
+  </ul>
+{{/hasItems}}
+<button class='add-item' data-type='armor'>
+  <i class='fa fa-plus'></i>
+  <span>{{loc 'gear.armor.add'}}</span>
+</button>
+
+<h2><span>{{loc 'character.encumbrance'}}</span></h2>
+
+<div class='encumbrance'>
+  <div class='encumbrance-bar encumbrance-bar-{{encumbrance.status}}' style='width: {{encumbrance.percentage}}%'></div>
+  <span>{{encumbrance.current}}</span>
+  <span>/</span>
+  <span>{{encumbrance.max}}</span>
+</div>

@@ -1,0 +1,15 @@
+.window-app.coriolis-window {
+    // TODO: implement this for all windows.
+    border: 1px solid transparentize($color-gold, 0.6);
+    border-radius: 0;
+
+    .window-header {
+        background: $color-black;
+        border-bottom: 1px solid transparentize($color-gold, 0.6);
+    }
+
+    .window-content {
+        background: $color-black;
+        color: $color-beige;
+    }
+}

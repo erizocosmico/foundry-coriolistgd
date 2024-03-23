@@ -1,0 +1,55 @@
+{{#hasItems talents}}
+  <ul class='item-list'>
+    {{#each talents as |t|}}
+      <li class='item'>
+        <div class='item-info'>
+          <h3 class='item-title'>
+            {{#if t.system.bonus}}
+              <a href='#' class='roll-item' title='{{loc "roll"}}' data-id='{{t._id}}' data-type='talent'>{{t.name}}</a>
+            {{else}}
+              {{t.name}}
+            {{/if}}
+          </h3>
+          <div class='item-features'>
+            <div class='item-feature'>
+              <span class='item-feature-label'>{{loc 'talents.level'}}</span>
+              <span class='item-feature-value'>{{t.system.level}}</span>
+            </div>
+
+            {{#if t.system.bonus}}
+              <div class='item-feature'>
+                <span class='item-feature-label'>{{loc 'talents.bonus'}}</span>
+                <span class='item-feature-value'>+{{t.system.bonus}}{{#if t.system.attribute}}
+                    {{loc 'to'}}
+                    {{loc 'attributes' t.system.attribute 'name'}}{{/if}}</span>
+              </div>
+            {{/if}}
+          </div>
+        </div>
+        <div class='item-description'>{{{t.system.description}}}</div>
+        <div class='item-actions'>
+          {{#if t.system.bonus}}
+            <button class='item-action roll-item' data-type='talent' data-id='{{t._id}}' title='{{loc "roll"}}'>
+              <i class='fa fa-dice'></i>
+            </button>
+          {{/if}}
+          <button class='item-action show-item' data-type='talent' data-id='{{t._id}}' title='{{loc "post_to_chat"}}'>
+            <i class='fa fa-comment'></i>
+          </button>
+          <button class='item-action edit-item' data-type='talent' data-id='{{t._id}}' title='{{loc "edit"}}'>
+            <i class='fa fa-edit'></i>
+          </button>
+          <button class='item-action delete-item' data-type='talent' data-id='{{t._id}}' title='{{loc "delete"}}'>
+            <i class='fa fa-trash'></i>
+          </button>
+        </div>
+      </li>
+    {{/each}}
+  </ul>
+{{else}}
+  <div class='warning'>{{loc 'talents.empty.character'}}</div>
+{{/hasItems}}
+<button class='add-item' data-type='talent'>
+  <i class='fa fa-plus'></i>
+  <span>{{loc 'talents.add'}}</span>
+</button>

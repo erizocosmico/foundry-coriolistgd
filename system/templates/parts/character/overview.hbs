@@ -1,0 +1,170 @@
+<h2><span>{{loc 'gear.weapons.label'}}</span></h2>
+{{#hasItems weaponsAtHand}}
+  <ul class='item-list'>
+    {{#each weaponsAtHand as |g|}}
+      <li class='item'>
+        <div class='item-header'>
+          <img src='{{g.img}}' title='{{g.name}}' class='item-img item-img-rollable roll-item' data-id='{{g._id}}' />
+          <div class='item-info'>
+            <div class='item-name'>{{g.name}}</div>
+            <div class='item-features'>
+              <div class='item-feature'>
+                <span class='item-feature-label'>{{loc 'gear.bonus'}}</span>
+                <span class='item-feature-value'>{{#if g.system.bonus}}+{{g.system.bonus}}{{else}}-{{/if}}</span>
+              </div>
+
+              <div class='item-feature'>
+                <span class='item-feature-label'>{{loc 'gear.weapons.damage_abbr'}}</span>
+                <span class='item-feature-value'>{{#if g.system.damage}}{{g.system.damage}}{{else}}-{{/if}}</span>
+              </div>
+
+              <div class='item-feature'>
+                <span class='item-feature-label'>{{loc 'gear.weapons.crit'}}</span>
+                <span class='item-feature-value'>{{#if g.system.crit}}{{g.system.crit}}{{else}}-{{/if}}</span>
+              </div>
+
+              <div class='item-feature'>
+                <span class='item-feature-label'>{{loc 'ranges.label'}}</span>
+                <span class='item-feature-value'>{{#if g.system.range}}{{loc
+                      'ranges'
+                      g.system.range
+                    }}{{else}}-{{/if}}</span>
+              </div>
+
+              {{#each (features g.system.features) as |f|}}
+                <div class='item-feature'>
+                  <span class='item-feature-value'>{{f}}</span>
+                </div>
+              {{/each}}
+            </div>
+          </div>
+        </div>
+        <div class='item-actions'>
+          <button class='item-action roll-item' data-type='gear' data-id='{{g._id}}' title='{{loc "roll"}}'>
+            <i class='fa fa-dice'></i>
+          </button>
+          <button
+            class='item-action toggle-item {{ifThen g.system.equipped "active" ""}}'
+            data-prop='at_hand'
+            data-id='{{g._id}}'
+            title='{{ifThen g.system.at_hand (loc "gear.weapons.move_to_inventory") (loc "gear.weapons.carry_hand")}}'
+          >
+            <i class='fa fa-{{ifThen g.system.at_hand "box" "hand"}}'></i>
+          </button>
+        </div>
+      </li>
+    {{/each}}
+  </ul>
+{{else}}
+  <div class='warning'>{{loc 'character.overview.no_weapons_at_hand'}}</div>
+{{/hasItems}}
+
+<h2><span>{{loc 'gear.armor.label'}}</span></h2>
+{{#hasItems wornArmor}}
+  <ul class='item-list'>
+    {{#each wornArmor as |g|}}
+      <li class='item'>
+        <div class='item-header'>
+          <img src='{{g.img}}' title='{{g.name}}' class='item-img item-img-rollable roll-item' data-id='{{g._id}}' />
+          <div class='item-info'>
+            <div class='item-name'>{{g.name}}</div>
+            <div class='item-features'>
+              <div class='item-feature'>
+                <span class='item-feature-label'>{{loc 'gear.armor.rating'}}</span>
+                <span class='item-feature-value'>{{#if g.system.rating}}{{g.system.rating}}{{else}}-{{/if}}</span>
+              </div>
+
+              <div class='item-feature'>
+                <span class='item-feature-label'>{{loc 'gear.armor.blight_protection'}}</span>
+                <span class='item-feature-value'>{{#if
+                    g.system.blight_protection
+                  }}{{g.system.blight_protection}}{{else}}-{{/if}}</span>
+              </div>
+
+              {{#each (features g.system.features) as |f|}}
+                <div class='item-feature'>
+                  <span class='item-feature-value'>{{f}}</span>
+                </div>
+              {{/each}}
+            </div>
+          </div>
+        </div>
+        <div class='item-actions'>
+          <button class='item-action roll-item' data-type='gear' data-id='{{g._id}}' title='{{loc "roll"}}'>
+            <i class='fa fa-dice'></i>
+          </button>
+          <button
+            class='item-action toggle-item'
+            data-prop='worn'
+            data-id='{{g._id}}'
+            title='{{ifThen g.system.worn (loc "gear.armor.remove") (loc "gear.armor.wear")}}'
+          >
+            <i class='fa fa-{{ifThen g.system.worn "xmark" "shirt"}}'></i>
+          </button>
+        </div>
+      </li>
+    {{/each}}
+  </ul>
+{{else}}
+  <div class='warning'>{{loc 'character.overview.no_worn_armor'}}</div>
+{{/hasItems}}
+
+<h2><span>{{loc 'injuries.label'}}</span></h2>
+{{#hasItems injuries}}
+  <ul class='item-list'>
+    {{#each injuries as |g|}}
+      <li class='item'>
+        <div class='item-header'>
+          <div class='item-img' title='{{loc "injuries" g.system.type}}'>
+            {{#if (eq g.system.type 'physical')}}<i class='fa fa-person'></i>{{/if}}
+            {{#if (eq g.system.type 'mental')}}<i class='fa fa-brain'></i>{{/if}}
+            {{#if (eq g.system.type 'blight')}}<i class='fa fa-virus'></i>{{/if}}
+          </div>
+          <div class='item-info'>
+            <div class='item-name'>{{g.name}}</div>
+            <div class='item-features'>
+              {{#if (eq g.system.type 'physical')}}
+                <div class='item-feature'>
+                  <span class='item-feature-label'>{{loc 'injuries.lethal'}}</span>
+                  <span class='item-feature-value'>{{#if g.system.lethal}}{{loc 'yes'}}{{else}}{{loc
+                        'no'
+                      }}{{/if}}</span>
+                </div>
+              {{/if}}
+
+              {{#if g.system.limit}}
+                <div class='item-feature'>
+                  <span class='item-feature-label'>{{loc 'injuries.limit'}}</span>
+                  <span class='item-feature-value'>{{g.system.limit}}</span>
+                </div>
+              {{/if}}
+
+              {{#if g.system.recovery}}
+                <div class='item-feature'>
+                  <span class='item-feature-label'>{{loc 'injuries.recovery'}}</span>
+                  <span class='item-feature-value'>{{g.system.recovery}}</span>
+                </div>
+              {{/if}}
+            </div>
+          </div>
+          {{#if g.system.effect}}<div class='item-description'>{{g.system.effect}}</div>{{/if}}
+        </div>
+        <div class='item-actions'>
+          <button class='item-action show-item' data-type='injury' data-id='{{g._id}}' title='{{loc "post_to_chat"}}'>
+            <i class='fa fa-comment'></i>
+          </button>
+          <button class='item-action edit-item' data-type='injury' data-id='{{g._id}}' title='{{loc "edit"}}'>
+            <i class='fa fa-edit'></i>
+          </button>
+          <button class='item-action delete-item' data-type='injury' data-id='{{g._id}}' title='{{loc "delete"}}'>
+            <i class='fa fa-trash'></i>
+          </button>
+        </div>
+      </li>
+    {{/each}}
+  </ul>
+{{/hasItems}}
+<button class='add-item' data-type='injury'>
+  <i class='fa fa-plus'></i>
+  <span>{{loc 'injuries.add'}}</span>
+</button>

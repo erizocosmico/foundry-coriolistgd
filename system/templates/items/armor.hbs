@@ -1,0 +1,43 @@
+<form class='{{cssClass}}' autocomplete='off'>
+  <header class='sheet-header'>
+    <img src='{{item.img}}' class='item-img' data-edit='img' title='{{item.name}}' />
+    <div class='field big'>
+      <input name='name' type='text' value='{{item.name}}' placeholder='{{loc "name"}}' />
+    </div>
+  </header>
+
+  <section>
+    <div class='field-group'>
+      <div class='field centered'>
+        <label for='system.rating'>{{loc 'gear.armor.rating'}}</label>
+        {{numberInput systemData.rating name='system.rating' step=1 min=0 max=99}}
+      </div>
+      <div class='field centered'>
+        <label for='system.blight_protection'>{{loc 'gear.armor.blight_protection'}}</label>
+        {{numberInput systemData.blight_protection name='system.blight_protection' step=1 min=0 max=99}}
+      </div>
+      <div class='field width-small centered'>
+        <label for='system.weight'>{{loc 'gear.weight'}}</label>
+        <select name='system.weight' data-dtype='Number'>
+          {{selectOptions weights selected=systemData.weight}}
+        </select>
+      </div>
+    </div>
+    <div class='field'>
+      <label for='system.features'>{{loc 'gear.features'}}</label>
+      <textarea name='system.features'>{{systemData.features}}</textarea>
+      <p>{{loc 'gear.features_hint'}}</p>
+    </div>
+    <div class='field'>
+      <label>{{loc 'description'}}</label>
+      {{editor
+        content=systemData.description
+        target='system.description'
+        rollData=rollData
+        button=true
+        owner=owner
+        editable=editable
+      }}
+    </div>
+  </section>
+</form>

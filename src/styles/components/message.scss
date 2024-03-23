@@ -1,0 +1,61 @@
+.coriolis-message {
+    h3 {
+        margin: 0.5rem 0;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid transparentize($color-gold, 0.6);
+        text-transform: uppercase;
+        flex: 1;
+        font-weight: bold;
+        font-size: 1.3rem;
+        letter-spacing: 0.05rem;
+        color: $color-gold;
+        text-align: center;
+    }
+
+    h4 {
+        text-align: center;
+        padding-top: 0.5rem;
+        font-family: $font-sans;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+
+    &-feature {
+        display: flex;
+        justify-content: space-between;
+        font-family: $font-sans;
+        text-transform: uppercase;
+        padding: 0.3rem 0;
+
+        &-label {
+            font-weight: bold;
+            color: $color-gold;
+        }
+
+        & + .coriolis-message-feature {
+            border-top: 1px solid transparentize($color-gold, 0.5);
+        }
+    }
+}
+
+.chat-message {
+    border-radius: 0;
+    border: 1px solid transparentize($color-gold, 0.7);
+    padding: 1rem;
+    background: $color-black;
+    color: $color-beige;
+
+    &.whisper {
+        background-color: transparentize($color-red, 0.9);
+    }
+
+    &.blind.whisper {
+        background-color: transparentize($color-green, 0.9);
+    }
+}
+
+.message-header {
+    color: $color-beige;
+    font-family: $font-sans;
+    text-transform: uppercase;
+}

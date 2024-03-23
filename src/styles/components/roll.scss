@@ -1,0 +1,246 @@
+.coriolis-roll {
+    &-result {
+        text-align: center;
+        padding-top: 0.5rem;
+        font-family: $font-sans;
+        font-size: 1.3rem;
+        text-transform: uppercase;
+        font-weight: bold;
+        padding-bottom: 0.5rem;
+    }
+
+    &-fail {
+        color: $color-red;
+    }
+
+    &-dice {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        padding: 0.5rem 0;
+
+        img {
+            height: 45px;
+            width: 45px;
+            border: 1px solid $color-gold;
+        }
+    }
+
+    &-push {
+        border: 1px solid transparentize($color-gold, 0.5);
+        border-radius: 0;
+        color: $color-gold;
+        font-family: $font-serif;
+        text-transform: uppercase;
+        font-weight: bold;
+        background-color: transparent;
+        letter-spacing: 0.05rem;
+
+        &:hover,
+        &:focus {
+            background-color: $color-gold;
+            color: $color-black;
+            box-shadow: none;
+        }
+    }
+
+    &-mods {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    &-mod {
+        border: 1px solid transparentize($color-gold, 0.6);
+        border-radius: 15px;
+        font-family: $font-sans;
+        text-transform: uppercase;
+        font-size: 0.7rem;
+        display: flex;
+        flex-shrink: 0;
+
+        &-label {
+            font-weight: bold;
+            color: $color-gold;
+
+            & + .coriolis-roll-mod-value {
+                border-left: 1px solid transparentize($color-gold, 0.6);
+            }
+        }
+
+        &-value,
+        &-label {
+            padding: 0.1rem 0.5rem;
+        }
+    }
+}
+
+.coriolis-roll-dialog {
+    .window-header {
+        flex: 0 0 45px;
+
+        h4 {
+            border-bottom: 1px solid transparentize($color-gold, 0.6);
+            padding: 0.5rem;
+            text-align: center;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: $color-gold;
+            letter-spacing: 0.1rem;
+            font-size: 1.3rem;
+        }
+
+        a.header-button {
+            display: none;
+        }
+    }
+
+    .dialog-buttons {
+        display: flex;
+        border-top: 1px solid transparentize($color-gold, 0.5);
+
+        button {
+            background-color: transparent;
+            border-radius: 0;
+            border: none;
+            color: $color-gold;
+            text-transform: uppercase;
+            font-weight: bold;
+            font-family: $font-sans;
+            letter-spacing: 0.15rem;
+            margin: 0;
+            padding: 0;
+            height: 40px;
+
+            &:hover,
+            &:focus {
+                color: $color-black;
+                background-color: $color-gold;
+                box-shadow: none;
+            }
+
+            & + button {
+                border-left: 1px solid transparentize($color-gold, 0.5);
+            }
+        }
+    }
+
+    h2 {
+        display: none;
+    }
+    .window-content {
+        padding: 0;
+        margin: 0;
+        background: $color-black;
+        color: $color-beige;
+    }
+
+    .roll-dices {
+        display: flex;
+        padding: 0.5rem;
+        gap: 1rem;
+    }
+
+    .roll-dice {
+        flex: 1;
+
+        h4 {
+            text-transform: uppercase;
+            font-weight: bold;
+            font-family: $font-sans;
+            text-align: center;
+        }
+
+        &-counter {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &-value {
+                height: 50px;
+                width: 50px;
+                line-height: 50px;
+                text-align: center;
+                flex-shrink: 0;
+                font-size: 1.5rem;
+                font-weight: bold;
+                font-family: $font-sans;
+
+                &.base {
+                    background-color: $color-gold;
+                    color: black;
+                    border: 1px solid $color-gold;
+                }
+
+                &.gear {
+                    color: $color-gold;
+                    background-color: black;
+                    border: 1px solid $color-gold;
+                }
+            }
+
+            &-btn {
+                border: none;
+                color: $color-gold;
+
+                &:hover,
+                &:focus {
+                    color: $color-beige;
+                    box-shadow: none;
+                }
+            }
+        }
+
+        &-info {
+            list-style: none;
+            padding: 0.5rem;
+            font-family: $font-sans;
+            text-transform: uppercase;
+
+            li {
+                display: flex;
+                justify-content: space-between;
+                padding: 0.3rem 0;
+                & + li {
+                    border-top: 1px solid transparentize($color-gold, 0.6);
+                }
+            }
+
+            &-label {
+                font-weight: bold;
+            }
+        }
+    }
+
+    .attribute-selector {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+        &-attr {
+            width: 50%;
+            padding: 0.5rem;
+            text-align: center;
+            cursor: pointer;
+
+            &:hover {
+                background-color: transparentize($color-gold, 0.8);
+            }
+
+            &-label {
+                text-transform: uppercase;
+                font-weight: bold;
+                letter-spacing: 0.05rem;
+                font-size: 0.8rem;
+                color: $color-gold;
+            }
+
+            &-value {
+                font-family: $font-sans;
+                font-weight: bold;
+                font-size: 2rem;
+            }
+        }
+    }
+}

@@ -1,0 +1,200 @@
+{
+  "CORIOLIS": {
+    "name": "Name",
+    "archetype": "Archetype",
+    "description": "Description",
+    "notes": "Notes",
+    "new": "New",
+    "edit": "Edit",
+    "delete": "Delete",
+    "to": "to",
+    "post_to_chat": "Post to chat",
+    "roll": "Roll",
+    "yes": "Yes",
+    "no": "No",
+    "cancel": "Cancel",
+    "supply": "Supply",
+
+    "attributes": {
+      "label": "Attributes",
+      "strength": {
+        "name": "Strength",
+        "condition": "Exhausted"
+      },
+      "agility": {
+        "name": "Agility",
+        "condition": "Dazed"
+      },
+      "logic": {
+        "name": "Logic",
+        "condition": "Confused"
+      },
+      "insight": {
+        "name": "Insight",
+        "condition": "Shaken"
+      },
+      "empathy": {
+        "name": "Empathy",
+        "condition": "Disheartened"
+      },
+      "perception": {
+        "name": "Perception",
+        "condition": "Distracted"
+      }
+    },
+
+    "stats": {
+      "hope": "Hope",
+      "health": "Health",
+      "heart": "Heart"
+    },
+
+    "talents": {
+      "add": "Add talent",
+      "label": "Talents",
+      "level": "Level",
+      "bonus": "Bonus",
+      "no_bonus": "No bonus",
+      "no_attribute": "No attribute",
+      "attribute": "Attribute",
+      "empty": {
+        "character": "Character has no talents."
+      }
+    },
+
+    "injuries": {
+      "label": "Critical injuries",
+      "add": "Add critical injury",
+      "type": "Type of injury",
+      "physical": "Physical",
+      "mental": "Mental",
+      "blight": "Blight",
+      "lethal": "Lethal",
+      "limit": "Time limit",
+      "recovery": "Recovery time",
+      "effect": "Effect"
+    },
+
+    "ranges": {
+      "label": "Range",
+      "engaged": "Engaged",
+      "short": "Short",
+      "medium": "Medium",
+      "long": "Long",
+      "extreme": "Extreme",
+      "special": "Special"
+    },
+
+    "birds": {
+      "bonus": "Bonus",
+      "energy": "Energy",
+      "effect": "Effect"
+    },
+
+    "gear": {
+      "add": "Add gear",
+      "label": "Gear",
+      "bonus": "Bonus",
+      "attribute": "Attribute",
+      "weight": "Weight",
+      "quantity": "Quantity",
+      "quantity_abbr": "Qty",
+      "tiny": "Tiny",
+      "features": "Features",
+      "equip": "Equip item",
+      "equipped": "Equipped",
+      "unequip": "Remove from equipment",
+      "features_hint": "Enter the features, separated by commas.",
+      "weapons": {
+        "add": "Add weapon",
+        "label": "Weapons",
+        "type": "Weapon type",
+        "melee": "Melee",
+        "ranged": "Ranged",
+        "damage": "Damage",
+        "damage_abbr": "Dmg",
+        "at_hand": "At hand",
+        "crit": "Crit",
+        "carry_hand": "Carry at hand",
+        "move_to_inventory": "Move it back to inventory"
+      },
+      "armor": {
+        "equip": "Equip armor",
+        "worn": "Worn",
+        "unequip": "Remove armor",
+        "add": "Add weapon",
+        "label": "Armor",
+        "rating": "Armor rating",
+        "blight_protection": "Blight protection",
+        "wear": "Wear armor",
+        "remove": "Take off armor"
+      }
+    },
+
+    "character": {
+      "crew_role": "Crew role",
+      "previous_occupation": "Previous occupation",
+      "quirk": "Quirk",
+      "appearance": "Appearance",
+      "keepsake": "Keepsake",
+      "experience": "Experience",
+      "encumbrance": "Encumbrance",
+      "overview": {
+        "no_weapons_at_hand": "There are no weapons at hand.",
+        "no_worn_armor": "No armor worn."
+      }
+    },
+
+    "rolls": {
+      "gear_damage": "Gear damage",
+      "hope_lost": "Hope lost",
+      "crit": "Critical threshold",
+      "fail": "Fail!",
+      "success": "Success",
+      "successes": "Successes",
+      "push": "Push roll",
+      "pushed": "Roll has been pushed",
+      "armor_fail": "No damaged reduced",
+      "armor_success": "damage reduced",
+      "base": "Base",
+      "gear": "Gear",
+      "item": "Gear item",
+      "modifier": "Modifier",
+      "total": "Total",
+      "talent": "Talent",
+      "base_mod": "Base mod.",
+      "gear_mod": "Gear mod.",
+      "dialog": {
+        "modifiers": {
+          "title": "Add modifiers"
+        },
+        "select_attribute": {
+          "title": "Select attribute"
+        }
+      }
+    },
+
+    "errors": {
+      "max_weapons_at_hand": "You can only keep 3 weapons at hand. Move one back to the inventory.",
+      "max_armor_worn": "You can only wear one armor. Remove the armor currently being worn before wearing this armor.",
+      "cannot_push_roll_item_does_not_exist": "Can't push roll because the item that was rolled no longer exists."
+    }
+  },
+
+  "TYPES": {
+    "Actor": {
+      "character": "Character",
+      "npc": "NPC",
+      "crew": "Crew",
+      "creature": "Creature"
+    },
+    "Item": {
+      "gear": "Gear",
+      "weapon": "Weapon",
+      "talent": "Talent",
+      "bird_ability": "Bird ability",
+      "armor": "Armor",
+      "injury": "Critical injury"
+    }
+  }
+}

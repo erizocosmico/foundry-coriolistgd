@@ -1,0 +1,108 @@
+<div class='coriolis-message'>
+  <h3>{{label}}</h3>
+
+  {{#if (or baseMod gearMod)}}
+    <div class='coriolis-roll-mods'>
+      {{#if baseMod}}
+        <div class='coriolis-roll-mod'>
+          <div class='coriolis-roll-mod-label'>{{loc 'rolls.base_mod'}}</div>
+          <div class='coriolis-roll-mod-value'>{{baseMod}}</div>
+        </div>
+      {{/if}}
+
+      {{#if gearMod}}
+        <div class='coriolis-roll-mod'>
+          <div class='coriolis-roll-mod-label'>{{loc 'rolls.gear_mod'}}</div>
+          <div class='coriolis-roll-mod-value'>{{gearMod}}</div>
+        </div>
+      {{/if}}
+    </div>
+  {{/if}}
+
+  {{#if pushed}}
+    <h4>{{loc 'rolls.pushed'}}</h4>
+
+    <div class='coriolis-roll-dice'>
+      {{#each pushResults.base as |d|}}
+        <img class='coriolis-dice' src='/systems/{{@root.systemId}}/assets/dice/base-{{d}}.png' title='{{d}}' />
+      {{/each}}
+      {{#each pushResults.gear as |d|}}
+        <img class='coriolis-dice' src='/systems/{{@root.systemId}}/assets/dice/gear-{{d}}.png' title='{{d}}' />
+      {{/each}}
+    </div>
+  {{else}}
+    <div class='coriolis-roll-dice'>
+      {{#each results.base as |d|}}
+        <img class='coriolis-dice' src='/systems/{{@root.systemId}}/assets/dice/base-{{d}}.png' title='{{d}}' />
+      {{/each}}
+      {{#each results.gear as |d|}}
+        <img class='coriolis-dice' src='/systems/{{@root.systemId}}/assets/dice/gear-{{d}}.png' title='{{d}}' />
+      {{/each}}
+    </div>
+  {{/if}}
+
+  <div
+    class='roll-data'
+    data-item-id='{{ifThen item item.id ""}}'
+    data-label='{{label}}'
+    data-base-mod='{{baseMod}}'
+    data-gear-mod='{{gearMod}}'
+  ></div>
+
+  {{#if isArmor}}
+    {{#if fail}}
+      <div class='coriolis-roll-result coriolis-roll-fail'>{{loc 'rolls.armor_fail'}}</div>
+    {{/if}}
+
+    {{#if success}}
+      <div class='coriolis-roll-result coriolis-roll-success'>{{successes}}
+        {{loc 'rolls.armor_success'}}</div>
+    {{/if}}
+  {{else}}
+    {{#if fail}}
+      <div class='coriolis-roll-result coriolis-roll-fail'>{{loc 'rolls.fail'}}</div>
+    {{/if}}
+
+    {{#if success}}
+      <div class='coriolis-roll-result coriolis-roll-success'>{{successes}}
+        {{localize successLabel}}</div>
+    {{/if}}
+  {{/if}}
+
+  <div class='coriolis-message-features'>
+    {{#if success}}
+      {{#if item}}
+        {{#if damage}}
+          <div class='coriolis-message-feature'>
+            <div class='coriolis-message-feature-label'>{{loc 'gear.weapons.damage'}}</div>
+            <div class='coriolis-message-feature-value'>{{damage}}</div>
+          </div>
+        {{/if}}
+        {{#if item.system.crit}}
+          <div class='coriolis-message-feature'>
+            <div class='coriolis-message-feature-label'>{{loc 'rolls.crit'}}</div>
+            <div class='coriolis-message-feature-value'>{{item.system.crit}}</div>
+          </div>
+        {{/if}}
+      {{/if}}
+    {{/if}}
+
+    {{#if hopeLost}}
+      <div class='coriolis-message-feature'>
+        <div class='coriolis-message-feature-label'>{{loc 'rolls.hope_lost'}}</div>
+        <div class='coriolis-message-feature-value'>{{hopeLost}}</div>
+      </div>
+    {{/if}}
+
+    {{#if gearDamage}}
+      <div class='coriolis-message-feature'>
+        <div class='coriolis-message-feature-label'>{{loc 'rolls.gear_damage'}}</div>
+        <div class='coriolis-message-feature-value'>{{gearDamage}}</div>
+      </div>
+    {{/if}}
+  </div>
+
+  {{#if canPush}}
+    <button class='coriolis-roll-push'>{{loc 'rolls.push'}}</button>
+  {{/if}}
+</div>

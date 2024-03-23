@@ -1,0 +1,49 @@
+<form class='{{cssClass}}' autocomplete='off'>
+  <header class='sheet-header'>
+    <img src='{{item.img}}' class='item-img' data-edit='img' title='{{item.name}}' />
+    <div class='field big'>
+      <input name='name' type='text' value='{{item.name}}' placeholder='{{loc "name"}}' />
+    </div>
+  </header>
+
+  <section>
+    <div class='field-group'>
+      <div class='field width-small centered'>
+        <label for='system.quantity'>{{loc 'gear.quantity'}}</label>
+        {{numberInput systemData.quantity name='system.quantity' step=1 min=0 max=100}}
+      </div>
+
+      <div class='field width-small centered'>
+        <label for='system.weight'>{{loc 'gear.weight'}}</label>
+        <select name='system.weight' data-dtype='Number'>
+          {{selectOptions weights selected=systemData.weight}}
+        </select>
+      </div>
+
+      <div class='field centered'>
+        <label for='system.bonus'>{{loc 'talents.bonus'}}</label>
+        <select name='system.bonus' data-dtype='Number'>
+          {{selectOptions bonuses selected=systemData.bonus}}
+        </select>
+      </div>
+
+      <div class='field centered'>
+        <label for='system.attribute'>{{loc 'talents.attribute'}}</label>
+        <select name='system.attribute'>
+          {{selectOptions attributes selected=systemData.attribute}}
+        </select>
+      </div>
+    </div>
+    <div class='field'>
+      <label>{{loc 'description'}}</label>
+      {{editor
+        content=systemData.description
+        target='system.description'
+        rollData=rollData
+        button=true
+        owner=owner
+        editable=editable
+      }}
+    </div>
+  </section>
+</form>

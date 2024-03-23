@@ -1,0 +1,229 @@
+#logo {
+    content: url('/systems/coriolistgd/assets/logo.png');
+    width: 204px;
+}
+
+#sidebar {
+    border-radius: 0;
+    border-left: 1px solid transparentize($color-gold, 0.6);
+    border-top: none;
+    border-bottom: none;
+    border-right: none;
+    margin: 0;
+    height: 100%;
+    width: calc(var(--sidebar-width) + 20px);
+    outline: 1px solid black;
+    box-shadow: none;
+
+    &.collapsed #sidebar-tabs > .item.active {
+        border-radius: 0;
+        border-bottom: 2px solid $color-gold;
+    }
+
+    &-tabs {
+        box-shadow: none;
+        border-bottom: 1px solid transparentize($color-gold, 0.6);
+
+        & > .item {
+            color: $color-beige;
+
+            &:hover {
+                text-shadow: 0 0 5px $color-gold;
+            }
+
+            &.active {
+                border: none;
+                box-shadow: none;
+                text-shadow: none;
+                color: $color-gold;
+                border-bottom: 3px solid $color-gold;
+            }
+        }
+    }
+}
+
+#sidebar,
+.sidebar-popout.sidebar-tab {
+    .action-buttons button,
+    #settings button {
+        font-family: $font-sans;
+        text-transform: uppercase;
+        letter-spacing: 0.02rem;
+        font-weight: bold;
+        color: $color-gold;
+        background: transparent;
+        border-radius: 0;
+        border: 1px solid $color-gold;
+
+        &:hover {
+            box-shadow:
+                0 0 5px $color-gold-darker,
+                0 0 5px $color-gold-darker inset;
+            text-shadow: 0 0 10px $color-gold-darker;
+            color: $color-gold-dark;
+            border-color: $color-gold-dark;
+        }
+    }
+
+    .header-search {
+        a {
+            color: $color-beige;
+
+            &:hover {
+                text-shadow: 0 0 5px $color-gold-dark;
+            }
+        }
+
+        input {
+            background-color: transparent;
+            color: $color-beige;
+            border-radius: 0;
+            border: 1px solid transparentize($color-gold, 0.5);
+
+            &:focus {
+                box-shadow: 0 0 5px $color-gold-dark;
+                border-color: $color-gold-dark;
+            }
+
+            &::placeholder {
+                color: transparentize($color-beige, 0.3);
+            }
+        }
+    }
+
+    #settings h2 {
+        text-transform: uppercase;
+        font-weight: bold;
+        letter-spacing: 0.05rem;
+        color: $color-beige;
+    }
+
+    #chat-controls {
+        border-top: 1px solid transparentize($color-gold, 0.6);
+        margin: 0;
+        padding: 6px;
+        color: $color-beige;
+
+        a:hover {
+            text-shadow: 0 0 5px $color-gold-dark;
+        }
+
+        select {
+            background-color: $color-black;
+            color: $color-beige;
+
+            &:focus {
+                box-shadow: 0 0 5px $color-gold-darker;
+            }
+        }
+    }
+
+    .directory-list {
+        a {
+            color: $color-beige;
+
+            &:hover {
+                text-shadow: 0 0 5px $color-gold-dark;
+            }
+        }
+    }
+
+    #chat-form {
+        margin: 0;
+
+        textarea {
+            border: none;
+            border-top: 1px solid transparentize($color-gold, 0.6);
+            background: transparent;
+            padding: 6px;
+            color: $color-beige;
+            border-radius: 0;
+            margin: 0;
+
+            &:focus {
+                box-shadow: 0 0 10px $color-gold-darker inset;
+            }
+        }
+    }
+}
+
+#controls {
+    padding-top: 1px;
+
+    ol.control-tools > li {
+        border-radius: 0;
+        box-shadow: none;
+        outline: 1px solid black;
+        border: 1px solid transparentize($color-gold, 0.6);
+
+        &.active {
+            color: $color-gold;
+            border: 1px solid $color-gold;
+            box-shadow: 0 0 5px $color-gold;
+        }
+    }
+}
+
+#players {
+    border-radius: 0;
+    box-shadow: none;
+    outline: 1px solid black;
+    border: 1px solid transparentize($color-gold, 0.6);
+
+    h3 {
+        text-transform: uppercase;
+        font-size: 0.9rem;
+        font-weight: bold;
+        letter-spacing: 0.05rem;
+    }
+}
+
+#hotbar {
+    #macro-list,
+    #hotbar-lock,
+    #hotbar-page-controls,
+    #hotbar-directory-controls {
+        border-radius: 0;
+        outline: 1px solid black;
+        border: 1px solid transparentize($color-gold, 0.6);
+
+        a {
+            color: $color-beige;
+            &:hover {
+                text-shadow: 0 0 5px $color-gold-dark;
+            }
+        }
+
+        .macro:hover {
+            box-shadow: 0 0 7px $color-gold-dark inset;
+        }
+    }
+}
+
+#navigation {
+    #nav-toggle,
+    #scene-list li {
+        border: 1px solid transparentize($color-gold, 0.6);
+        outline: 1px solid black;
+        border-radius: 0;
+        color: $color-beige;
+
+        &:hover {
+            text-shadow: 0 0 5px $color-gold-dark;
+        }
+    }
+
+    #scene-list li.active {
+        border: 1px solid $color-gold-dark;
+        box-shadow: 0 0 5px $color-gold-dark;
+
+        a:hover {
+            text-shadow: 0 0 5px $color-gold-dark;
+        }
+    }
+}
+
+#ui-top.offset {
+    margin-left: 0px;
+    margin-top: 5px;
+}
