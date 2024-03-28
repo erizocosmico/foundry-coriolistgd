@@ -117,19 +117,31 @@ export async function rollArmor(actor, item) {
     return await postRoll(actor, undefined, item, undefined, undefined, roll);
 }
 
+export async function rollBirdAbility(crew, item) {
+    try {
+        const actor = await selectActor(crew);
+        return await roll(actor, 'insight', item);
+    } catch (err) {
+        return null;
+    }
+}
+
+function hasGearBonus(item) {
+    return !(item?.type === 'talent' || item?.type === 'bird_ability');
+}
+
 export async function roll(actor, attribute = undefined, item = undefined) {
     if (!attribute) {
         try {
             attribute = await selectAttribute(actor);
-        } catch (err) {
-            if (err) console.error(err);
+        } catch {
             return null;
         }
     }
 
     let base = actor.attribute(attribute);
-    let baseBonus = item?.type === 'talent' ? item.system.bonus : 0;
-    let gear = item?.type === 'talent' ? 0 : item?.system?.bonus || 0;
+    let baseBonus = hasGearBonus(item) ? 0 : item.system.bonus;
+    let gear = hasGearBonus(item) ? item?.system?.bonus || 0 : 0;
     const condition = actor.hasCondition(attribute);
 
     let baseMod, gearMod;
@@ -327,7 +339,8 @@ export async function addDiceModifiers({base, baseBonus, gear, attribute, condit
     const data = {
         baseDice: base,
         isTalent: item?.type === 'talent',
-        talentMod: baseBonus,
+        isBirdAbility: item?.type === 'bird_ability',
+        baseBonus: baseBonus,
         baseTotal: base + baseBonus + (condition ? -2 : 0),
         gearDice: gear,
         attribute,
@@ -400,6 +413,62 @@ export async function addDiceModifiers({base, baseBonus, gear, attribute, condit
                 classes: ['coriolis-roll-dialog', 'coriolis-window'],
             },
         ).render(true);
+    });
+}
+
+export async function selectActor(crew) {
+    return new Promise(async (resolve, reject) => {
+        const members = crew.members();
+        if (members.length === 0) {
+            ui.notifications.warn(localize('errors.crew_empty'));
+            reject();
+            return;
+        }
+
+        // There is no point in presenting a dialog if there is only 1.
+        if (members.length === 1) {
+            resolve(members[0]);
+            return;
+        }
+
+        const data = {members};
+
+        const template = await renderTemplate(
+            `systems/${ID}/templates/dialogs/roll_select_actor.hbs`,
+            data,
+        );
+
+        const buttons = {
+            cancel: {
+                label: localize('cancel'),
+            },
+        };
+
+        let dialog;
+
+        const render = (html) => {
+            html.find('.actor').on('click', (e) => {
+                const index = e.currentTarget.dataset.index;
+                resolve(members[index]);
+                dialog.close();
+            });
+        };
+
+        dialog = new Dialog(
+            {
+                title: localize('rolls.dialog.select_actor.title'),
+                content: template,
+                buttons: buttons,
+                default: 'cancel',
+                render,
+                close: reject,
+            },
+            {
+                classes: ['coriolis-roll-dialog', 'coriolis-window'],
+            },
+        );
+
+        dialog.render(true);
     });
 }
 

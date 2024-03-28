@@ -1,0 +1,10 @@
+<form autocomplete='off'>
+  <div class='actor-selector'>
+    {{#each members as |a|}}
+      <div class='actor' data-index='{{@index}}'>
+        <img src='{{a.img}}' class='actor-img' title='{{a.name}}' />
+        <div class='actor-name'>{{a.name}}</div>
+      </div>
+    {{/each}}
+  </div>
+</form>

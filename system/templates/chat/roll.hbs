@@ -87,6 +87,15 @@
       {{/if}}
     {{/if}}
 
+    {{#if item}}
+      {{#if item.system.energy}}
+        <div class='coriolis-message-feature'>
+          <div class='coriolis-message-feature-label'>{{loc 'birds.energy'}}</div>
+          <div class='coriolis-message-feature-value'>{{item.system.energy}}</div>
+        </div>
+      {{/if}}
+    {{/if}}
+
     {{#if hopeLost}}
       <div class='coriolis-message-feature'>
         <div class='coriolis-message-feature-label'>{{loc 'rolls.hope_lost'}}</div>

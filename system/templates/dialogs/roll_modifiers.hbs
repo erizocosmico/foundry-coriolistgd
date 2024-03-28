@@ -20,7 +20,13 @@
         {{#if isTalent}}
           <li>
             <div class='roll-dice-info-label'>{{loc 'rolls.talent'}}</div>
-            <div class='roll-dice-info-value'>{{talentMod}}</div>
+            <div class='roll-dice-info-value'>{{baseBonus}}</div>
+          </li>
+        {{/if}}
+        {{#if isBirdAbility}}
+          <li>
+            <div class='roll-dice-info-label'>{{loc 'rolls.bird_ability'}}</div>
+            <div class='roll-dice-info-value'>{{baseBonus}}</div>
           </li>
         {{/if}}
         <li>

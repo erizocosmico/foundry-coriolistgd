@@ -79,6 +79,12 @@ export class CoriolisActor extends Actor {
         return roll(this, attr);
     }
 
+    members() {
+        if (this.type !== 'crew') return [];
+
+        return (this.system.explorers || []).map((id) => game.actors.get(id)).filter((x) => x);
+    }
+
     _updateStats(changes) {
         const attributes = {};
         for (let a of Object.keys(this.data.system.attributes)) {

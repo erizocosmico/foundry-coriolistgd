@@ -1,7 +1,7 @@
 import {createMessage} from './chat';
 import {ID} from './config';
 import {localize} from './helpers/i18n';
-import {roll, rollArmor} from './rolls';
+import {roll, rollArmor, rollBirdAbility} from './rolls';
 
 const MAX_WEAPONS_AT_HAND = 3;
 const MAX_ARMOR_WORN = 1;
@@ -58,6 +58,10 @@ export class CoriolisItem extends Item {
             return await rollArmor(actor, this);
         }
 
+        if (this.type === 'bird_ability') {
+            return await rollBirdAbility(actor, this);
+        }
+
         let attribute = this.system?.attribute;
         if (this.type === 'weapon') {
             attribute = this.system.type === 'ranged' ? 'agility' : 'strength';
@@ -75,4 +79,4 @@ export class CoriolisItem extends Item {
     }
 }
 
-const ROLLABLE_ITEMS = ['armor', 'weapon', 'gear', 'talent'];
+const ROLLABLE_ITEMS = ['armor', 'weapon', 'gear', 'talent', 'bird_ability'];

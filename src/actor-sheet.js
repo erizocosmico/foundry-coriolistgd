@@ -5,7 +5,7 @@ import {roll} from './rolls';
 const ALLOWED_ITEMS = {
     character: ['gear', 'weapon', 'armor', 'talent', 'injury'],
     npc: ['gear', 'weapon', 'armor', 'talent'],
-    crew: ['bird_ability'],
+    crew: ['bird_ability', 'armor'],
 };
 
 export class CoriolisActorSheet extends ActorSheet {
@@ -25,7 +25,7 @@ export class CoriolisActorSheet extends ActorSheet {
         switch (object.type) {
             case 'crew':
                 options.width = 580;
-                options.height = 670;
+                options.height = 580;
                 options.tabs = [
                     {navSelector: '.sheet-tabs', contentSelector: '.sheet-body', initial: 'crew'},
                 ];
@@ -72,16 +72,13 @@ export class CoriolisActorSheet extends ActorSheet {
     }
 
     _prepareCrewData(context) {
-        context.crew = (this.actor.system.explorers || []).map((id) => {
-            const actor = game.actors.get(id);
-            return {
-                id: actor._id,
-                name: actor.name,
-                img: actor.img,
-                role: actor.system.crew_role || '-',
-                supply: actor.system.supply || 0,
-            };
-        });
+        context.crew = this.actor.members().map((actor) => ({
+            id: actor._id,
+            name: actor.name,
+            img: actor.img,
+            role: actor.system.crew_role || '-',
+            supply: actor.system.supply || 0,
+        }));
         context.supply = context.crew.reduce((supply, member) => supply + member.supply, 0);
     }
 

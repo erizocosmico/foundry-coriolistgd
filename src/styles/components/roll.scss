@@ -243,4 +243,35 @@
             }
         }
     }
+
+    .actor-selector {
+        .actor {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            cursor: pointer;
+
+            &-img {
+                height: 50px;
+                width: 50px;
+                border: 2px solid $color-black;
+                outline: 1px solid $color-gold;
+                border-radius: 0;
+            }
+
+            &-name {
+                flex: 1;
+                font-size: 1rem;
+            }
+
+            &:hover {
+                background-color: transparentize($color-gold, 0.8);
+            }
+
+            & + .actor {
+                border-top: 1px solid transparentize($color-gold, 0.6);
+            }
+        }
+    }
 }

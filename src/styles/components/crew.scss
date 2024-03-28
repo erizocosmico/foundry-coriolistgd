@@ -28,3 +28,17 @@
         text-align: center;
     }
 }
+
+.bird-header {
+    display: flex;
+    gap: 1rem;
+
+    .bird-details {
+        flex: 1;
+    }
+
+    .bird-stats {
+        min-width: 250px;
+        padding-top: 1rem;
+    }
+}

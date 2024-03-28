@@ -1,1 +1,147 @@
-Not implemented yet.
+<header class='bird-header'>
+  <div class='bird-details'>
+    <div class='field'>
+      <label for='system.bird.name'>{{loc 'birds.name'}}</label>
+      <input name='system.bird.name' type='text' value='{{systemData.bird.name}}' placeholder='{{loc "birds.name"}}' />
+    </div>
+    <div class='field'>
+      <label for='system.bird.appearance'>{{loc 'birds.appearance'}}</label>
+      <textarea name='system.bird.appearance'>{{systemData.bird.appearance}}</textarea>
+    </div>
+  </div>
+
+  <div class='bird-stats'>
+    <div class='stat'>
+      <div class='stat-name'>{{loc 'stats.health'}}</div>
+      <div class='stat-value'>
+        {{numberInput systemData.bird.health.value name='system.bird.health.value' step=1 min=0 max=99}}
+      </div>
+    </div>
+
+    <div class='stat'>
+      <div class='stat-name'>{{loc 'birds.energy'}}</div>
+      <div class='stat-value'>
+        {{numberInput systemData.bird.energy.value name='system.bird.energy.value' step=1 min=0 max=99}}
+      </div>
+    </div>
+  </div>
+</header>
+
+<h2><span>{{loc 'birds.abilities.label'}}</span></h2>
+
+{{#hasItems birdAbilities}}
+  <ul class='item-list'>
+    {{#each birdAbilities as |t|}}
+      <li class='item' data-item-id='{{t._id}}'>
+        <div class='item-info'>
+          <h3 class='item-title'>
+            {{#if t.system.bonus}}
+              <a href='#' class='roll-item' title='{{loc "roll"}}' data-id='{{t._id}}' data-type='talent'>{{t.name}}</a>
+            {{else}}
+              {{t.name}}
+            {{/if}}
+          </h3>
+          <div class='item-features'>
+            <div class='item-feature'>
+              <span class='item-feature-label'>{{loc 'birds.bonus'}}</span>
+              <span class='item-feature-value'>+{{t.system.bonus}}</span>
+            </div>
+
+            <div class='item-feature'>
+              <span class='item-feature-label'>{{loc 'birds.energy'}}</span>
+              <span class='item-feature-value'>{{t.system.energy}}</span>
+            </div>
+
+            <div class='item-feature'>
+              <span class='item-feature-label'>{{loc 'ranges.label'}}</span>
+              <span class='item-feature-value'>{{#if t.system.range}}{{loc
+                    'ranges'
+                    t.system.range
+                  }}{{else}}-{{/if}}</span>
+            </div>
+          </div>
+        </div>
+        <div class='item-description'>{{{t.system.effect}}}</div>
+        <div class='item-actions'>
+          {{#if t.system.bonus}}
+            <button class='item-action roll-item' data-type='bird_ability' data-id='{{t._id}}' title='{{loc "roll"}}'>
+              <i class='fa fa-dice'></i>
+            </button>
+          {{/if}}
+          <button
+            class='item-action show-item'
+            data-type='bird_ability'
+            data-id='{{t._id}}'
+            title='{{loc "post_to_chat"}}'
+          >
+            <i class='fa fa-comment'></i>
+          </button>
+          <button class='item-action edit-item' data-type='bird_ability' data-id='{{t._id}}' title='{{loc "edit"}}'>
+            <i class='fa fa-edit'></i>
+          </button>
+          <button class='item-action delete-item' data-type='bird_ability' data-id='{{t._id}}' title='{{loc "delete"}}'>
+            <i class='fa fa-trash'></i>
+          </button>
+        </div>
+      </li>
+    {{/each}}
+  </ul>
+{{else}}
+  <div class='warning'>{{loc 'birds.abilities.empty'}}</div>
+{{/hasItems}}
+<button class='add-item' data-type='bird_ability'>
+  <i class='fa fa-plus'></i>
+  <span>{{loc 'birds.abilities.add'}}</span>
+</button>
+
+<h2><span>{{loc 'gear.armor.label'}}</span></h2>
+{{#hasItems armor}}
+  <ul class='item-list'>
+    {{#each armor as |g|}}
+      <li class='item' data-item-id='{{g._id}}'>
+        <div class='item-header'>
+          {{#if (gt g.system.rating 0)}}
+            <img src='{{g.img}}' title='{{g.name}}' class='item-img item-img-rollable roll-item' data-id='{{g._id}}' />
+          {{else}}
+            <img src='{{g.img}}' title='{{g.name}}' class='item-img' />
+          {{/if}}
+          <div class='item-info'>
+            <div class='item-name'>{{g.name}}</div>
+            <div class='item-features'>
+              <div class='item-feature'>
+                <span class='item-feature-label'>{{loc 'gear.armor.rating'}}</span>
+                <span class='item-feature-value'>{{#if g.system.rating}}{{g.system.rating}}{{else}}-{{/if}}</span>
+              </div>
+
+              {{#each (features g.system.features) as |f|}}
+                <div class='item-feature'>
+                  <span class='item-feature-value'>{{f}}</span>
+                </div>
+              {{/each}}
+            </div>
+          </div>
+        </div>
+        <div class='item-actions'>
+          {{#if (gt g.system.rating 0)}}
+            <button class='item-action roll-item' data-type='gear' data-id='{{g._id}}' title='{{loc "roll"}}'>
+              <i class='fa fa-dice'></i>
+            </button>
+          {{/if}}
+          <button class='item-action show-item' data-type='gear' data-id='{{g._id}}' title='{{loc "post_to_chat"}}'>
+            <i class='fa fa-comment'></i>
+          </button>
+          <button class='item-action edit-item' data-type='gear' data-id='{{g._id}}' title='{{loc "edit"}}'>
+            <i class='fa fa-edit'></i>
+          </button>
+          <button class='item-action delete-item' data-type='gear' data-id='{{g._id}}' title='{{loc "delete"}}'>
+            <i class='fa fa-trash'></i>
+          </button>
+        </div>
+      </li>
+    {{/each}}
+  </ul>
+{{/hasItems}}
+<button class='add-item' data-type='armor'>
+  <i class='fa fa-plus'></i>
+  <span>{{loc 'gear.armor.add'}}</span>
+</button>

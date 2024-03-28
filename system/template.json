@@ -66,8 +66,8 @@
           "max": 0
         },
         "energy": {
-          "value": 0,
-          "max": 0
+          "value": 3,
+          "max": 3
         }
       },
       "notes": ""

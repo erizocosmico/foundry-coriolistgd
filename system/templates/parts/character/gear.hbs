@@ -179,7 +179,11 @@
     {{#each armor as |g|}}
       <li class='item' data-item-id='{{g._id}}'>
         <div class='item-header'>
-          <img src='{{g.img}}' title='{{g.name}}' class='item-img item-img-rollable roll-item' data-id='{{g._id}}' />
+          {{#if (gt g.system.rating 0)}}
+            <img src='{{g.img}}' title='{{g.name}}' class='item-img item-img-rollable roll-item' data-id='{{g._id}}' />
+          {{else}}
+            <img src='{{g.img}}' title='{{g.name}}' class='item-img' />
+          {{/if}}
           <div class='item-info'>
             <div class='item-name'>{{g.name}}</div>
             <div class='item-features'>
@@ -215,9 +219,11 @@
           </div>
         </div>
         <div class='item-actions'>
-          <button class='item-action roll-item' data-type='gear' data-id='{{g._id}}' title='{{loc "roll"}}'>
-            <i class='fa fa-dice'></i>
-          </button>
+          {{#if (gt g.system.rating 0)}}
+            <button class='item-action roll-item' data-type='gear' data-id='{{g._id}}' title='{{loc "roll"}}'>
+              <i class='fa fa-dice'></i>
+            </button>
+          {{/if}}
           <button
             class='item-action toggle-item'
             data-prop='worn'

@@ -1,5 +1,10 @@
 # Changelog
 
+### v0.3.0
+
+-   Do not show roll buttons for armor if rating is 0.
+-   Bird tab on the crew sheet.
+
 ### v0.2.0
 
 -   New dice faces.
