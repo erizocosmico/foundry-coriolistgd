@@ -1,7 +1,7 @@
 .coriolistgd.sheet.actor {
     .sheet-header {
         align-items: flex-start;
-        padding: 0 0.5rem;
+        padding: 0.5rem 0.5rem;
         gap: 0.5rem;
         .profile-img {
             border: 2px solid black;
@@ -10,6 +10,11 @@
             border-radius: 0;
             object-fit: contain;
             outline: 1px solid $color-gold;
+
+            &.crew-img {
+                height: 95px;
+                width: 95px;
+            }
         }
     }
 
@@ -17,9 +22,167 @@
         @import 'character';
     }
 
+    .crew {
+        @import 'crew';
+    }
+
     .warning {
         padding: 0.5rem;
         text-align: center;
+    }
+
+    .item-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        .item {
+            padding: 0.5rem 0;
+            position: relative;
+
+            &:hover {
+                background-color: transparentize($color-gold, 0.9);
+            }
+
+            &-actions {
+                display: none;
+                position: absolute;
+                right: 0;
+                top: 0.5rem;
+                gap: 0.3rem;
+
+                .item-action {
+                    border: 1px solid $color-gold;
+                    background-color: $color-black;
+                    border-radius: 50%;
+                    color: $color-gold;
+                    height: 30px;
+                    width: 30px;
+                    box-shadow: 0 0 20px $color-black;
+
+                    &:hover,
+                    &:focus {
+                        text-shadow: 0 0 5px $color-gold-dark;
+                        box-shadow: 0 0 5px $color-gold-dark;
+                    }
+
+                    i {
+                        margin-left: 3px;
+
+                        &.fa-dice,
+                        &.fa-shirt {
+                            margin-left: 1px;
+                        }
+                    }
+                }
+            }
+
+            &-img {
+                height: 30px;
+                width: 30px;
+                border: 2px solid $color-black;
+                outline: 1px solid $color-gold;
+                border-radius: 0;
+                margin-top: 5px;
+                flex-shrink: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                i {
+                    font-size: 1.2rem;
+                    color: $color-gold;
+                }
+
+                &-rollable {
+                    cursor: pointer;
+                }
+            }
+
+            &-header {
+                display: flex;
+                gap: 0.5rem;
+                flex-wrap: wrap;
+            }
+
+            &-features {
+                display: flex;
+                gap: 0.5rem;
+                margin-top: 0.5rem;
+                flex-wrap: wrap;
+            }
+
+            &-feature {
+                border: 1px solid transparentize($color-gold, 0.6);
+                border-radius: 15px;
+                font-family: $font-sans;
+                text-transform: uppercase;
+                font-size: 0.7rem;
+                display: flex;
+                flex-shrink: 0;
+
+                &-label {
+                    font-weight: bold;
+                    color: $color-gold;
+
+                    & + .item-feature-value {
+                        border-left: 1px solid transparentize($color-gold, 0.6);
+                    }
+                }
+
+                &-value,
+                &-label {
+                    padding: 0.1rem 0.5rem;
+                }
+            }
+
+            &-name {
+                & + .item-features {
+                    margin-top: 0.2rem;
+                }
+            }
+
+            &:hover .item-actions {
+                display: flex;
+            }
+
+            &-title {
+                margin: 0;
+                padding: 0;
+                border: none;
+                color: $color-gold;
+                text-transform: uppercase;
+                font-weight: bold;
+                letter-spacing: 0.08rem;
+                line-height: 1.2rem;
+                font-size: 0.9rem;
+                gap: 0.5rem;
+                display: flex;
+                align-items: center;
+
+                a {
+                    color: $color-gold;
+                    text-decoration: none;
+
+                    &:hover {
+                        text-shadow: 0 0 6px $color-gold-dark;
+                    }
+                }
+            }
+
+            &-info {
+                flex: 1;
+            }
+
+            & + .item {
+                border-top: 1px solid transparentize($color-gold, 0.8);
+            }
+
+            &-description {
+                flex: 0 0 100%;
+                width: 100%;
+            }
+        }
     }
 }
 

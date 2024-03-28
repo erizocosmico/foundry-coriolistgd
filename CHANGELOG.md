@@ -1,5 +1,10 @@
 # Changelog
 
+### v0.2.0
+
+-   New dice faces.
+-   Crew sheet with crew and notes.
+
 ### v0.1.1
 
 -   Items from the sheets can now be dropped into the sidebar.

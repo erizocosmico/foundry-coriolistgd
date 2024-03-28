@@ -57,6 +57,18 @@ Hooks.once('ready', async function () {
 Hooks.once('diceSoNiceReady', registerDice3D);
 Hooks.on('renderChatMessage', handleRollPush);
 
+Hooks.on('updateActor', async function (actor) {
+    if (actor.type === 'character') {
+        Array.from(game.actors.values())
+            .filter((a) => a.type === 'crew')
+            .forEach((a) => {
+                for (let k of Object.keys(a.apps)) {
+                    a.apps[k].render(true);
+                }
+            });
+    }
+});
+
 function registerSettings() {
     for (let k of Object.keys(Coriolis.SETTINGS)) {
         game.settings.register(Coriolis.ID, k, Coriolis.SETTINGS[k]);

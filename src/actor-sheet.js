@@ -17,7 +17,7 @@ export class CoriolisActorSheet extends ActorSheet {
             tabs: [
                 {navSelector: '.sheet-tabs', contentSelector: '.sheet-body', initial: 'overview'},
             ],
-            //dragDrop: [{dragSelector: '.item-list .item', dropSelector: null}],
+            dragDrop: [{dragSelector: '.item-list .item', dropSelector: null}],
         });
     }
 
@@ -26,6 +26,9 @@ export class CoriolisActorSheet extends ActorSheet {
             case 'crew':
                 options.width = 580;
                 options.height = 670;
+                options.tabs = [
+                    {navSelector: '.sheet-tabs', contentSelector: '.sheet-body', initial: 'crew'},
+                ];
                 break;
             case 'npc':
                 options.width = 580;
@@ -50,7 +53,7 @@ export class CoriolisActorSheet extends ActorSheet {
     }
 
     get template() {
-        return `systems/${ID}/templates/${this.actor.type}-sheet.hbs`;
+        return `systems/${ID}/templates/sheets/${this.actor.type}.hbs`;
     }
 
     async getData(options) {
@@ -60,10 +63,26 @@ export class CoriolisActorSheet extends ActorSheet {
 
         if (context.data.type === 'character') {
             this._prepareCharacterData(context);
+        } else if (context.data.type === 'crew') {
+            this._prepareCrewData(context);
         }
         this._prepareItems(context);
 
         return context;
+    }
+
+    _prepareCrewData(context) {
+        context.crew = (this.actor.system.explorers || []).map((id) => {
+            const actor = game.actors.get(id);
+            return {
+                id: actor._id,
+                name: actor.name,
+                img: actor.img,
+                role: actor.system.crew_role || '-',
+                supply: actor.system.supply || 0,
+            };
+        });
+        context.supply = context.crew.reduce((supply, member) => supply + member.supply, 0);
     }
 
     _prepareCharacterData(context) {
@@ -146,13 +165,34 @@ export class CoriolisActorSheet extends ActorSheet {
             case 'character':
                 this._activateCharacterListeners(html);
                 break;
+            case 'crew':
+                this._activateCrewListeners(html);
+                break;
         }
+        this._activateItemListeners(html);
 
         let handler = (ev) => this._onDragStart(ev);
         html.find('.item-list li.item').each((i, li) => {
             li.setAttribute('draggable', true);
             li.addEventListener('dragstart', handler, false);
         });
+    }
+
+    /** @override */
+    async _onDropActor(event, actor) {
+        if (this.actor.type !== 'crew') return super._onDropActor(event);
+
+        const explorer = game.actors.get(foundry.utils.parseUuid(actor.uuid)?.documentId);
+        if (explorer.type !== 'character') return super._onDropActor(event);
+
+        const explorers = this.actor.system.explorers || [];
+        if (explorers.includes(explorer._id)) return;
+
+        await this.actor.update({
+            'system.explorers': [...explorers, explorer._id],
+        });
+
+        return super._onDropActor(event);
     }
 
     _activateCharacterListeners(html) {
@@ -163,7 +203,13 @@ export class CoriolisActorSheet extends ActorSheet {
         html.find('.attribute.rollable').on('click', (e) => this._onRollAttribute(e));
 
         html.find('.stat-counter-dot').on('click', (e) => this._onUpdateStat(e));
+    }
 
+    _activateCrewListeners(html) {
+        html.find('.delete-crew').on('click', (e) => this._onDeleteCrewMember(e));
+    }
+
+    _activateItemListeners(html) {
         html.find('.add-item').on('click', (e) => this._onAddItem(e));
         html.find('.edit-item').on('click', (e) => this._onEditItem(e));
         html.find('.delete-item').on('click', (e) => this._onDeleteItem(e));
@@ -249,6 +295,14 @@ export class CoriolisActorSheet extends ActorSheet {
         const id = e.currentTarget.dataset.id;
         const item = this.actor.items.get(id);
         if (item) item.delete();
+    }
+
+    _onDeleteCrewMember(e) {
+        e.preventDefault();
+        // TODO: show confirm before deleting
+        const id = e.currentTarget.dataset.id;
+        const explorers = this.actor.system.explorers || [];
+        this.actor.update({'system.explorers': explorers.filter((e) => e !== id)});
     }
 
     _onRollItem(e) {

@@ -1,0 +1,32 @@
+{{#hasItems crew}}
+  <ul class='item-list'>
+    {{#each crew as |c|}}
+      <li class='item'>
+        <div class='item-header'>
+          <img src='{{c.img}}' title='{{c.name}}' class='item-img crew-img' />
+          <div class='item-info'>
+            <div class='item-name'>{{c.name}}</div>
+            <div class='item-features'>
+              <div class='item-feature'>
+                <span class='item-feature-label'>{{loc 'crew.role'}}</span>
+                <span class='item-feature-value'>{{c.role}}</span>
+              </div>
+
+              <div class='item-feature'>
+                <span class='item-feature-label'>{{loc 'supply'}}</span>
+                <span class='item-feature-value'>{{c.supply}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class='item-actions'>
+          <button class='item-action delete-crew' data-type='gear' data-id='{{c.id}}' title='{{loc "delete"}}'>
+            <i class='fa fa-trash'></i>
+          </button>
+        </div>
+      </li>
+    {{/each}}
+  </ul>
+{{else}}
+  <p class='warning'>{{loc 'crew.empty'}}</p>
+{{/hasItems}}

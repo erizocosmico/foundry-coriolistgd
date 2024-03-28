@@ -1,0 +1,33 @@
+<form class='{{cssClass}} {{data.type}}' autocomplete='off'>
+  <header class='sheet-header'>
+    <img class='profile-img crew-img' src='{{data.img}}' data-edit='img' title='{{data.name}}' height='80' width='80' />
+    <div class='header-fields'>
+      <div class='field big centered'>
+        <input name='name' type='text' value='{{data.name}}' placeholder='{{loc "name"}}' />
+      </div>
+
+      <div class='supply'>
+        <div class='supply-label'>{{loc 'supply'}}</div>
+        <div class='supply-value'>{{supply}}</div>
+      </div>
+    </div>
+  </header>
+  <section class='sheet-content'>
+    <nav class='sheet-tabs tabs' data-group='primary'>
+      <a class='item' data-tab='crew'>{{loc 'tabs.crew'}}</a>
+      <a class='item' data-tab='bird'>{{loc 'tabs.bird'}}</a>
+      <a class='item' data-tab='notes'>{{loc 'tabs.notes'}}</a>
+    </nav>
+    <div class='sheet-body'>
+		<div class='tab crew' data-group='primary' data-tab='crew'>
+          {{> (partial "crew" "crew")}}
+        </div>
+        <div class='tab bird' data-group='primary' data-tab='bird'>
+          {{> (partial "crew" "bird")}}
+        </div>
+        <div class='tab notes' data-group='primary' data-tab='notes'>
+          {{> (partial "crew" "notes")}}
+        </div>
+    </div>
+  </section>
+</form>

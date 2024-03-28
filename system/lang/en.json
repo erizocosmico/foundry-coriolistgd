@@ -15,6 +15,16 @@
     "cancel": "Cancel",
     "supply": "Supply",
 
+    "tabs": {
+      "overview": "Overview",
+      "bio": "Bio",
+      "gear": "Gear",
+      "talents": "Talents",
+      "crew": "Crew",
+      "bird": "Bird",
+      "notes": "Notes"
+    },
+
     "attributes": {
       "label": "Attributes",
       "strength": {
@@ -143,6 +153,11 @@
         "no_weapons_at_hand": "There are no weapons at hand.",
         "no_worn_armor": "No armor worn."
       }
+    },
+
+    "crew": {
+      "role": "Role",
+      "empty": "There are no members on this crew. Drop a character here to add one."
     },
 
     "rolls": {

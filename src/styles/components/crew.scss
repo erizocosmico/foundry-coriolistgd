@@ -1,0 +1,30 @@
+.supply {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0.5rem;
+
+    &-label {
+        font-weight: bold;
+        text-transform: uppercase;
+        color: $color-gold;
+        letter-spacing: 0.1rem;
+        font-size: 1.1rem;
+    }
+
+    &-value {
+        height: 40px;
+        width: 40px;
+        line-height: 35px;
+        background-color: $color-beige;
+        border: 2px solid black;
+        outline: 1px solid $color-gold;
+        border-radius: 50%;
+        color: $color-black;
+        font-weight: bold;
+        font-family: $font-sans;
+        font-size: 1.2rem;
+        text-align: center;
+    }
+}
