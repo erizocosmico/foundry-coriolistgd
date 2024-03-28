@@ -1,10 +1,8 @@
-import {createMessage} from './chat';
 import {ID} from './config';
 import {localize} from './helpers/i18n';
 import {roll, rollArmor, rollBirdAbility} from './rolls';
 
 const MAX_WEAPONS_AT_HAND = 3;
-const MAX_ARMOR_WORN = 1;
 
 export class CoriolisItem extends Item {
     /** @override */
@@ -35,16 +33,6 @@ export class CoriolisItem extends Item {
                     }
                 }
                 break;
-            case 'armor':
-                if (changes?.system?.worn && actor) {
-                    const armorWorn = Array.from(actor.items.values()).filter(
-                        (i) => i.type === 'armor' && i?.system?.worn,
-                    ).length;
-                    if (armorWorn >= MAX_ARMOR_WORN) {
-                        ui.notifications.error(localize('errors.max_armor_worn'));
-                        return false;
-                    }
-                }
         }
 
         return super._preUpdate(changes, ...args);

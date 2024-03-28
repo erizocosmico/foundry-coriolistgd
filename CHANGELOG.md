@@ -1,5 +1,10 @@
 # Changelog
 
+### v0.3.1
+
+-   Add spanish translation.
+-   Removed max worn armor.
+
 ### v0.3.0
 
 -   Do not show roll buttons for armor if rating is 0.

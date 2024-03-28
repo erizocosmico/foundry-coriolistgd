@@ -1,0 +1,226 @@
+{
+  "CORIOLIS": {
+    "name": "Nombre",
+    "archetype": "Arquetipo",
+    "description": "Descripción",
+    "notes": "Notas",
+    "new": "Nuevo",
+    "edit": "Editar",
+    "delete": "Borrar",
+    "to": "a",
+    "post_to_chat": "Mostrar en el chat",
+    "roll": "Tirar",
+    "yes": "Sí",
+    "no": "No",
+    "cancel": "Cancelar",
+    "supply": "Suministros",
+
+    "tabs": {
+      "overview": "General",
+      "bio": "Bio",
+      "gear": "Equipo",
+      "talents": "Talentos",
+      "crew": "Miembros",
+      "bird": "Pájaro",
+      "notes": "Notas"
+    },
+
+    "attributes": {
+      "label": "Atributos",
+      "strength": {
+        "name": "Fuerza",
+        "condition": "Exhausto"
+      },
+      "agility": {
+        "name": "Agilidad",
+        "condition": "Aturdido"
+      },
+      "logic": {
+        "name": "Lógica",
+        "condition": "Confundido"
+      },
+      "insight": {
+        "name": "Comprensión",
+        "condition": "Conmocionado"
+      },
+      "empathy": {
+        "name": "Empatía",
+        "condition": "Desalentado"
+      },
+      "perception": {
+        "name": "Percepción",
+        "condition": "Distraído"
+      }
+    },
+
+    "stats": {
+      "hope": "Esperanza",
+      "health": "Salud",
+      "heart": "Corazón"
+    },
+
+    "talents": {
+      "add": "Añadir talento",
+      "label": "Talentos",
+      "level": "Nivel",
+      "bonus": "Bono",
+      "no_bonus": "Sin bono",
+      "no_attribute": "Sin atributo",
+      "attribute": "Atributo",
+      "empty": {
+        "character": "El personaje no tiene talentos."
+      }
+    },
+
+    "injuries": {
+      "label": "Heridas críticas",
+      "add": "Añadir herida crítica",
+      "type": "Tipo de herida",
+      "physical": "Física",
+      "mental": "Mental",
+      "blight": "Ruina",
+      "lethal": "Letal",
+      "limit": "Límite de tiempo",
+      "recovery": "Recuperación",
+      "effect": "Efecto"
+    },
+
+    "ranges": {
+      "label": "Rango",
+      "engaged": "Trabado",
+      "short": "Corto",
+      "medium": "Medio",
+      "long": "Largo",
+      "extreme": "Extremo",
+      "special": "Especial"
+    },
+
+    "birds": {
+      "bonus": "Bono",
+      "energy": "Energía",
+      "effect": "Efecto",
+      "name": "Nombre del pájaro",
+      "appearance": "Apariencia",
+      "abilities": {
+        "label": "Habilidades",
+        "empty": "El pájaro no tiene habilidades.",
+        "add": "Añadir habilidad"
+      }
+    },
+
+    "gear": {
+      "add": "Añadir equipo",
+      "label": "Equipo",
+      "bonus": "Bono",
+      "attribute": "Atributo",
+      "weight": "Peso",
+      "quantity": "Cantidad",
+      "quantity_abbr": "Cant.",
+      "tiny": "Diminuto",
+      "features": "Rasgos",
+      "equip": "Equipar objeto",
+      "equipped": "Equipado",
+      "unequip": "Quitar del equipo",
+      "features_hint": "Introduce los ragos separados por comas.",
+      "weapons": {
+        "add": "Añadir arma",
+        "label": "Armas",
+        "type": "Tipo de arma",
+        "melee": "Cuerpo a cuerpo",
+        "ranged": "A distancia",
+        "damage": "Daño",
+        "damage_abbr": "Daño",
+        "at_hand": "A mano",
+        "crit": "Crít",
+        "carry_hand": "Llevar a mano",
+        "move_to_inventory": "Devolver al inventario"
+      },
+      "armor": {
+        "equip": "Equipar armadura",
+        "worn": "Puesta",
+        "unequip": "Quitar armadura",
+        "add": "Añadir armadura",
+        "label": "Armadura",
+        "rating": "Valor de armadura",
+        "blight_protection": "Prot. contra ruina",
+        "wear": "Ponerse la armadura",
+        "remove": "Quitarse la armadura"
+      }
+    },
+
+    "character": {
+      "crew_role": "Role en la banda",
+      "previous_occupation": "Ocupación previa",
+      "quirk": "Peculiaridad",
+      "appearance": "Apariencia",
+      "keepsake": "Recuerdo",
+      "experience": "Experiencia",
+      "encumbrance": "Carga",
+      "overview": {
+        "no_weapons_at_hand": "No hay armas a mano.",
+        "no_worn_armor": "No hay armadura equipada."
+      }
+    },
+
+    "crew": {
+      "role": "Rol",
+      "empty": "No hay miembros en esta banda. Arrastra aquí un personaje para añadirlos."
+    },
+
+    "rolls": {
+      "gear_damage": "Daño al equipo",
+      "hope_lost": "Esperanza perdida",
+      "crit": "Umbral de crítico",
+      "fail": "¡Fallo!",
+      "success": "Éxito",
+      "successes": "Éxitos",
+      "push": "Forzar tirada",
+      "pushed": "La tirada ha sido forzada",
+      "armor_fail": "Sin reducción de daño",
+      "armor_success": "daño reducido",
+      "base": "Base",
+      "gear": "Equipo",
+      "item": "Objeto",
+      "modifier": "Modificador",
+      "total": "Total",
+      "talent": "Talento",
+      "bird_ability": "Habilidad",
+      "base_mod": "Mod. base",
+      "gear_mod": "Mod. equipo",
+      "dialog": {
+        "modifiers": {
+          "title": "Añade modificadores"
+        },
+        "select_attribute": {
+          "title": "Selecciona atributo"
+        },
+        "select_actor": {
+          "title": "Selecciona personaje"
+        }
+      }
+    },
+
+    "errors": {
+      "max_weapons_at_hand": "Solo puedes llevar 3 armas a mano. Mueve una antes al inventario.",
+      "cannot_push_roll_item_does_not_exist": "No se puede forzar la tirada porque el objeto que fue tirado no existe.",
+      "crew_empty": "No hay miembros en la banda. Debes añadir algún miembro antes de tirar una habilidad del pájaro."
+    }
+  },
+
+  "TYPES": {
+    "Actor": {
+      "character": "Personaje",
+      "npc": "PNJ",
+      "crew": "Banda",
+      "creature": "Criatura"
+    },
+    "Item": {
+      "gear": "Equipo",
+      "weapon": "Arma",
+      "talent": "Talento",
+      "bird_ability": "Habilidad de pájaro",
+      "armor": "Armadura",
+      "injury": "Herida crítica"
+    }
+  }
+}

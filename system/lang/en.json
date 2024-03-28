@@ -195,14 +195,13 @@
           "title": "Select attribute"
         },
         "select_actor": {
-          "title": "Select actor"
+          "title": "Select character"
         }
       }
     },
 
     "errors": {
       "max_weapons_at_hand": "You can only keep 3 weapons at hand. Move one back to the inventory.",
-      "max_armor_worn": "You can only wear one armor. Remove the armor currently being worn before wearing this armor.",
       "cannot_push_roll_item_does_not_exist": "Can't push roll because the item that was rolled no longer exists.",
       "crew_empty": "There are no members in the crew. You need to add members to the crew before rolling a bird ability."
     }
