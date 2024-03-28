@@ -1,5 +1,9 @@
 # Changelog
 
+### v0.3.2
+
+-   Fixed hope lost and gear damage after pushing the roll. Original roll ones are not taken into account now.
+
 ### v0.3.1
 
 -   Add spanish translation.

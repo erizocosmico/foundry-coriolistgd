@@ -179,8 +179,8 @@ async function reroll(message, previousRollData) {
 
     const roll = await new Roll(`${base}db + ${gear}dg`, {}).evaluate();
     const numSuccesses = successes(roll) + successes(previousRoll);
-    const hopeLost = ones(roll, CoriolisBaseDie) + ones(previousRoll, CoriolisBaseDie);
-    const gearDamage = ones(roll, CoriolisGearDie) + ones(previousRoll, CoriolisGearDie);
+    const hopeLost = ones(roll, CoriolisBaseDie);
+    const gearDamage = ones(roll, CoriolisGearDie);
     let damage = undefined;
     if (previousData.item && previousData.item.type === 'weapon') {
         damage = (previousData.item.system.damage || 0) + Math.max(0, numSuccesses - 1);
