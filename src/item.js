@@ -50,8 +50,9 @@ export class CoriolisItem extends Item {
         return super._preUpdate(changes, ...args);
     }
 
-    async roll(actor) {
+    async roll(actor = this.parent) {
         if (!ROLLABLE_ITEMS.includes(this.type)) return;
+        if (!actor) return;
 
         if (this.type === 'armor') {
             return await rollArmor(actor, this);
@@ -65,7 +66,8 @@ export class CoriolisItem extends Item {
         return await roll(actor, attribute, this);
     }
 
-    async show(actor) {
+    async show(actor = this.parent) {
+        if (!actor) return;
         ui.notifications.warn('Posting items to chat is not implemented yet');
         /*return await createMessage(actor, `/systems/${ID}/templates/chat/item.hbs`, {
             item: this,

@@ -1,7 +1,7 @@
 {{#hasItems talents}}
   <ul class='item-list'>
     {{#each talents as |t|}}
-      <li class='item'>
+      <li class='item' data-item-id='{{t._id}}'>
         <div class='item-info'>
           <h3 class='item-title'>
             {{#if t.system.bonus}}

@@ -14,8 +14,10 @@ export class CoriolisActorSheet extends ActorSheet {
             classes: [ID, 'sheet', 'actor', 'coriolis-window'],
             width: 800,
             height: 600,
-            tabs: [{navSelector: '.sheet-tabs', contentSelector: '.sheet-body', initial: 'main'}],
-            dragDrop: [{dragSelector: '.item-list .item', dropSelector: null}],
+            tabs: [
+                {navSelector: '.sheet-tabs', contentSelector: '.sheet-body', initial: 'overview'},
+            ],
+            //dragDrop: [{dragSelector: '.item-list .item', dropSelector: null}],
         });
     }
 
@@ -145,6 +147,12 @@ export class CoriolisActorSheet extends ActorSheet {
                 this._activateCharacterListeners(html);
                 break;
         }
+
+        let handler = (ev) => this._onDragStart(ev);
+        html.find('.item-list li.item').each((i, li) => {
+            li.setAttribute('draggable', true);
+            li.addEventListener('dragstart', handler, false);
+        });
     }
 
     _activateCharacterListeners(html) {

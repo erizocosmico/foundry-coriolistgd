@@ -6,6 +6,7 @@ import {CoriolisActorSheet} from './actor-sheet';
 import {preloadHandlebarsTemplates, registerHandlebarsHelpers} from './templates';
 import './styles/coriolis.scss';
 import {CoriolisBaseDie, CoriolisGearDie, handleRollPush, registerDice3D} from './rolls';
+import {rollItemMacro, createItemMacro} from './macros';
 
 Hooks.once('init', async function () {
     console.log('Coriolis: The Great Dark | Initializing system');
@@ -13,6 +14,7 @@ Hooks.once('init', async function () {
     game[Coriolis.ID] = {
         CoriolisActor,
         CoriolisItem,
+        rollItemMacro,
     };
 
     CONFIG.Dice.terms['b'] = CoriolisBaseDie;
@@ -43,6 +45,13 @@ Hooks.on('yzeCombatReady', () => {
     } catch (e) {
         console.error('Coriolis: Could not configure YZE Combat. Try refreshing the page.');
     }
+});
+
+Hooks.once('ready', async function () {
+    Hooks.on('hotbarDrop', (_, data, slot) => {
+        createItemMacro(data, slot);
+        if (data.type === 'Item') return false;
+    });
 });
 
 Hooks.once('diceSoNiceReady', registerDice3D);

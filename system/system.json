@@ -21,6 +21,17 @@
       "path": "lang/en.json"
     }
   ],
+  "relationships": {
+    "requires": [
+      {
+        "id": "yze-combat",
+        "type": "module",
+        "compatibility": {
+          "verified": "1.2.2"
+        }
+      }
+    ]
+  },
   "compatibility": {
     "minimum": "11",
     "verified": "11"

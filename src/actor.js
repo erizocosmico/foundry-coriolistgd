@@ -1,4 +1,5 @@
 import {ID} from './config';
+import {roll} from './rolls';
 
 const MIN_ATTR = 2;
 const MAX_ATTR = 6;
@@ -74,6 +75,10 @@ export class CoriolisActor extends Actor {
         return data;
     }
 
+    rollAttribute(attr) {
+        return roll(this, attr);
+    }
+
     _updateStats(changes) {
         const attributes = {};
         for (let a of Object.keys(this.data.system.attributes)) {
@@ -101,7 +106,7 @@ export class CoriolisActor extends Actor {
 }
 
 function changedAttributeValue(changes) {
-    if (!changes.system.attributes) return false;
+    if (!changes.system?.attributes) return false;
     for (let a of Object.keys(changes.system.attributes)) {
         const val = changes.system.attributes[a].value;
         if (val) return true;
