@@ -173,14 +173,15 @@ export async function roll(actor, attribute = undefined, item = undefined) {
 }
 
 async function reroll(message, previousRollData) {
-    const {roll: previousRoll, data: previousData} = previousRollData;
+    const {roll: previousRoll, data: previousData, actor} = previousRollData;
+    const item = previousData.item;
     const base = rerollable(previousRoll, CoriolisBaseDie);
     const gear = rerollable(previousRoll, CoriolisGearDie);
 
     const roll = await new Roll(`${base}db + ${gear}dg`, {}).evaluate();
     const numSuccesses = successes(roll) + successes(previousRoll);
-    const hopeLost = ones(roll, CoriolisBaseDie);
-    const gearDamage = ones(roll, CoriolisGearDie);
+    const hopeLost = ones(roll, CoriolisBaseDie) + ones(previousRoll, CoriolisBaseDie);
+    const gearDamage = ones(roll, CoriolisGearDie) + ones(previousRoll, CoriolisGearDie);
     let damage = undefined;
     if (previousData.item && previousData.item.type === 'weapon') {
         damage = (previousData.item.system.damage || 0) + Math.max(0, numSuccesses - 1);
@@ -215,8 +216,18 @@ async function reroll(message, previousRollData) {
 
     const html = await renderTemplate(`systems/${ID}/templates/chat/roll.hbs`, rollData);
 
-    return await message.update({content: html});
+    await message.update({content: html});
+
+    if (item && DAMAGEABLE_ITEMS.includes(item.type)) {
+        await item.update({'system.bonus': Math.max(0, item.system.bonus - gearDamage)});
+    }
+
+    return await actor.update({
+        'system.hope.value': Math.max(0, actor.system.hope.value - hopeLost),
+    });
 }
+
+const DAMAGEABLE_ITEMS = ['weapon', 'gear'];
 
 export async function handleRollPush(message, html) {
     html.find('button.coriolis-roll-push').click(async (e) => {
@@ -256,6 +267,7 @@ function prevRollData(actor, message, html) {
 
     return {
         roll: message.rolls[0],
+        actor,
         data,
     };
 }

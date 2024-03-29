@@ -1,5 +1,10 @@
 # Changelog
 
+### v0.3.3
+
+-   Change to hope lost and gear damage after pushing introduced in v0.3.2 has been reverted, QuickStart rules are better clarified in another section and original rolls should be taken into account.
+-   Gear and hope are decreased now automatically when pushing a roll.
+
 ### v0.3.2
 
 -   Fixed hope lost and gear damage after pushing the roll. Original roll ones are not taken into account now.
