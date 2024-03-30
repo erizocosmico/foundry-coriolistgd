@@ -1,5 +1,9 @@
 # Changelog
 
+### v0.4.0
+
+-   Added NPC sheet.
+
 ### v0.3.3
 
 -   Change to hope lost and gear damage after pushing introduced in v0.3.2 has been reverted, QuickStart rules are better clarified in another section and original rolls should be taken into account.

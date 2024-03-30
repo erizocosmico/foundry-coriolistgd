@@ -59,9 +59,11 @@ export class CoriolisActor extends Actor {
     }
 
     _preUpdate(changes, ...args) {
-        if (this.data.type === 'character' && changedAttributeValue(changes)) {
+        if ((this.type === 'character' || this.type === 'npc') && changedAttributeValue(changes)) {
             if (!attributeChangesValid(changes)) return false;
-            this._updateStats(changes);
+            if (this.type === 'character') {
+                this._updateStats(changes);
+            }
         }
         return super._preUpdate(changes, ...args);
     }
@@ -111,18 +113,19 @@ export class CoriolisActor extends Actor {
     }
 }
 
-function changedAttributeValue(changes) {
-    if (!changes.system?.attributes) return false;
-    for (let a of Object.keys(changes.system.attributes)) {
-        const val = changes.system.attributes[a].value;
+function changedAttributeValue(type, changes) {
+    for (let a of Object.keys(changes?.system?.attributes || {})) {
+        const attr = changes.system.attributes[a];
+        const val = type === 'character' ? attr.value : attr;
         if (val) return true;
     }
     return false;
 }
 
-function attributeChangesValid(changes) {
-    for (let a of Object.keys(changes.system.attributes)) {
-        const val = changes.system.attributes[a].value;
+function attributeChangesValid(type, changes) {
+    for (let a of Object.keys(changes.system?.attributes || {})) {
+        const attr = changes.system.attributes[a];
+        const val = type === 'character' ? attr.value : attr;
         if (!val) continue;
         if (val < MIN_ATTR || val > MAX_ATTR) return false;
     }

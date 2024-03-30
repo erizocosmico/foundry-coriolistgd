@@ -1,0 +1,246 @@
+<form class='{{cssClass}} {{data.type}}' autocomplete='off'>
+  <header class='sheet-header'>
+    <img class='npc-img' src='{{data.img}}' data-edit='img' title='{{data.name}}' height='100' width='100' />
+    <input name='name' type='text' class='npc-name' value='{{data.name}}' placeholder='{{loc "name"}}' />
+  </header>
+
+  <section class='description'>
+    <button class='description-setup setup-toggle' data-section='description'>
+      {{#if setup.description}}
+        <i class='fa fa-check'></i>
+      {{else}}
+        <i class='fa fa-gear'></i>
+      {{/if}}
+    </button>
+    {{#if setup.description}}
+      <div class='description-editor'>
+        <div class='field big centered'>
+          {{editor
+            content=systemData.notes
+            target='system.notes'
+            button=true
+            owner=owner
+            editable=editable
+            engine='prosemirror'
+          }}
+        </div>
+        <button class='setup-toggle' data-section='description'>
+          <i class='fa fa-check'></i>
+          <span>{{loc 'done'}}</span>
+        </button>
+      </div>
+    {{else}}
+      {{#if systemData.notes}}
+        <div class='description-content'>
+          {{{systemData.notes}}}
+        </div>
+      {{else}}
+        <div class='warning'>{{loc 'npc.no_description'}}</div>
+      {{/if}}
+    {{/if}}
+  </section>
+
+  <section>
+    <h2>
+      <div>
+        <span>{{loc 'attributes.label'}}</span>
+        <button class='attributes-setup setup-toggle' data-section='attributes'>
+          {{#if setup.attributes}}
+            <i class='fa fa-check'></i>
+          {{else}}
+            <i class='fa fa-gear'></i>
+          {{/if}}
+        </button>
+      </div>
+    </h2>
+
+    <div class='attributes {{ifThen setup.attributes "edit" ""}}'>
+      {{#if setup.attributes}}
+        <div class='attributes-list'>
+          {{#each attributes as |a|}}
+            <div class='attribute {{ifThen @root.setup.attributes "rollable" ""}}' data-attribute='{{key}}'>
+              <h4 class='attribute-title'>{{loc 'attributes' a.id 'name'}}</h4>
+              <div class='attribute-edit'>
+                <button class='attribute-minus' data-attribute='{{a.id}}'>
+                  <i class='fa fa-minus'></i>
+                </button>
+                {{numberInput a.value name=(concat 'system.attributes.' a.id) step=1 min=2 max=6}}
+                <button class='attribute-plus' data-attribute='{{a.id}}'>
+                  <i class='fa fa-plus'></i>
+                </button>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      {{else}}
+        {{#each attributes as |a|}}
+          {{#if (gt @index 0)}}<span>, </span>{{/if}}
+          <a href='#' class='attribute rollable' data-attribute='{{a.id}}'><strong>{{loc
+                'attributes'
+                a.id
+                'name'
+              }}</strong>
+            {{a.value}}</a>
+        {{/each}}
+      {{/if}}
+    </div>
+  </section>
+
+  <section>
+    <h2>
+      <div>
+        <span>{{loc 'stats.health'}}</span>
+        <button class='health-setup setup-toggle' data-section='health'>
+          {{#if setup.health}}
+            <i class='fa fa-check'></i>
+          {{else}}
+            <i class='fa fa-gear'></i>
+          {{/if}}
+        </button>
+      </div>
+    </h2>
+
+    {{#if setup.health}}
+      <div class='health-edit'>
+        <div class='health'>
+          <div class='health-edit'>
+            <button class='health-minus'>
+              <i class='fa fa-minus'></i>
+            </button>
+            {{numberInput systemData.health.max name='system.health.max' step=1 min=1 max=99}}
+            <button class='health-plus'>
+              <i class='fa fa-plus'></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    {{else}}
+      <div class='health-bar'>
+        <div class='stat'>
+          <div class='stat-counter'>
+            {{#each (range 1 systemData.health.max) as |i|}}
+              <div
+                class='stat-counter-dot {{ifThen (gte @root.systemData.health.value i) "active" ""}}'
+                data-value='{{i}}'
+                data-stat='health'
+              ></div>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+    {{/if}}
+  </section>
+
+  <section>
+    <h2>
+      <div>
+        <span>{{loc 'talents.label'}}</span>
+        <button class='add-item' data-type='talent'>
+          <i class='fa fa-plus'></i>
+        </button>
+      </div>
+    </h2>
+
+    {{#hasItems talents}}
+      <ul class='item-list item-list-npc'>
+        {{#each talents as |t|}}
+          <li class='item' data-item-id='{{t._id}}'>
+            <h3 class='item-title'>
+              {{#if t.system.bonus}}
+                <a
+                  href='#'
+                  class='roll-item'
+                  title='{{loc "roll"}}'
+                  data-id='{{t._id}}'
+                  data-type='talent'
+                >{{t.name}}:</a>
+              {{else}}
+                {{t.name}}:
+              {{/if}}
+            </h3>
+            <div class='item-description'>{{{t.system.description}}}</div>
+            <div class='item-actions'>
+              {{#if t.system.bonus}}
+                <button class='item-action roll-item' data-type='talent' data-id='{{t._id}}' title='{{loc "roll"}}'>
+                  <i class='fa fa-dice'></i>
+                </button>
+              {{/if}}
+              <button
+                class='item-action show-item'
+                data-type='talent'
+                data-id='{{t._id}}'
+                title='{{loc "post_to_chat"}}'
+              >
+                <i class='fa fa-comment'></i>
+              </button>
+              <button class='item-action edit-item' data-type='talent' data-id='{{t._id}}' title='{{loc "edit"}}'>
+                <i class='fa fa-edit'></i>
+              </button>
+              <button class='item-action delete-item' data-type='talent' data-id='{{t._id}}' title='{{loc "delete"}}'>
+                <i class='fa fa-trash'></i>
+              </button>
+            </div>
+          </li>
+        {{/each}}
+      </ul>
+    {{else}}
+      <div class='warning'>{{loc 'talents.empty.npc'}}</div>
+    {{/hasItems}}
+  </section>
+
+  <section>
+    <h2>
+      <div>
+        <span>{{loc 'npc.equipment'}}</span>
+        <button class='add-equipment' data-context='equipment'>
+          <i class='fa fa-plus'></i>
+        </button>
+      </div>
+    </h2>
+
+    {{#hasItems equipment}}
+      <ul class='item-list item-list-npc'>
+        {{#each equipment as |e|}}
+          <li class='item' data-item-id='{{t._id}}'>
+            <div class='item-gear'>
+              <a
+                href='#'
+                class='roll-item item-title'
+                title='{{loc "roll"}}'
+                data-id='{{e._id}}'
+                data-type='talent'
+              >{{e.name}}</a>
+              <span class='item-gear-features'>{{npcItemFeatures e}}</span>
+            </div>
+            <div class='item-actions'>
+              <button class='item-action roll-item' data-type='{{e.type}}' data-id='{{e._id}}' title='{{loc "roll"}}'>
+                <i class='fa fa-dice'></i>
+              </button>
+              <button
+                class='item-action show-item'
+                data-type='{{e.type}}'
+                data-id='{{e._id}}'
+                title='{{loc "post_to_chat"}}'
+              >
+                <i class='fa fa-comment'></i>
+              </button>
+              <button class='item-action edit-item' data-type='{{e.type}}' data-id='{{e._id}}' title='{{loc "edit"}}'>
+                <i class='fa fa-edit'></i>
+              </button>
+              <button
+                class='item-action delete-item'
+                data-type='{{e.type}}'
+                data-id='{{e._id}}'
+                title='{{loc "delete"}}'
+              >
+                <i class='fa fa-trash'></i>
+              </button>
+            </div>
+          </li>
+        {{/each}}
+      </ul>
+    {{else}}
+      <div class='warning'>{{loc 'talents.empty.npc'}}</div>
+    {{/hasItems}}
+  </section>
+</form>

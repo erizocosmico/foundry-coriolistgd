@@ -14,6 +14,8 @@
     "no": "No",
     "cancel": "Cancel",
     "supply": "Supply",
+    "save": "Save",
+    "done": "Done",
 
     "tabs": {
       "overview": "Overview",
@@ -68,7 +70,8 @@
       "no_attribute": "No attribute",
       "attribute": "Attribute",
       "empty": {
-        "character": "Character has no talents."
+        "character": "Character has no talents.",
+        "npc": "No talents."
       }
     },
 
@@ -125,6 +128,7 @@
       "weapons": {
         "add": "Add weapon",
         "label": "Weapons",
+        "label_single": "Weapon",
         "type": "Weapon type",
         "melee": "Melee",
         "ranged": "Ranged",
@@ -142,7 +146,9 @@
         "add": "Add armor",
         "label": "Armor",
         "rating": "Armor rating",
+        "rating_abbr": "AR",
         "blight_protection": "Blight protection",
+        "blight_protection_abbr": "BP",
         "wear": "Wear armor",
         "remove": "Take off armor"
       }
@@ -165,6 +171,11 @@
     "crew": {
       "role": "Role",
       "empty": "There are no members on this crew. Drop a character here to add one."
+    },
+
+    "npc": {
+      "equipment": "Equipment",
+      "no_description": "No description."
     },
 
     "rolls": {

@@ -17,21 +17,19 @@
   <section class='attributes'>
     <h2>
       <span>{{loc 'attributes.label'}}</span>
-      <button class='attributes-edit-switch'>
-        {{#if locked}}
-          <i class='fa fa-gear'></i>
-        {{else}}
+      <button class='attributes-edit-switch setup-toggle' data-section="attributes">
+        {{#if setup.attributes}}
           <i class='fa fa-check'></i>
+        {{else}}
+          <i class='fa fa-gear'></i>
         {{/if}}
       </button>
     </h2>
     <div class='attributes-list'>
       {{#each systemData.attributes as |val key|}}
-        <div class='attribute {{ifThen @root.locked "rollable" ""}}' data-attribute='{{key}}'>
+        <div class='attribute {{ifThen @root.setup.attributes "" "rollable"}}' data-attribute='{{key}}'>
           <h4 class='attribute-title'>{{loc 'attributes' key 'name'}}</h4>
-          {{#if @root.locked}}
-            <span class='attribute-value'>{{val.value}}</span>
-          {{else}}
+          {{#if @root.setup.attributes}}
             <div class='attribute-edit'>
               <button class='attribute-minus' data-attribute='{{key}}'>
                 <i class='fa fa-minus'></i>
@@ -41,6 +39,8 @@
                 <i class='fa fa-plus'></i>
               </button>
             </div>
+            {{else}}
+            <span class='attribute-value'>{{val.value}}</span>
           {{/if}}
 
           <div class='attribute-condition {{ifThen val.condition "marked" ""}}' data-attribute='{{key}}'></div>

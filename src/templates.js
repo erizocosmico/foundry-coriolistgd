@@ -56,4 +56,39 @@ export function registerHandlebarsHelpers() {
             .map((s) => s.trim())
             .filter((x) => x);
     });
+
+    Handlebars.registerHelper('npcItemFeatures', function (item) {
+        const features = [];
+        if (item.type === 'gear' && item.system.bonus) {
+            features.push(`+${item.system.bonus}`);
+        } else if (item.type === 'weapon') {
+            if (item.system.bonus) {
+                features.push(`+${item.system.bonus}`);
+            }
+
+            if (item.system.damage) {
+                features.push(`${localize('gear.weapons.damage_abbr')} ${item.system.damage}`);
+            }
+
+            if (item.system.crit) {
+                features.push(`${localize('gear.weapons.crit')} ${item.system.crit}`);
+            }
+
+            if (item.system.range) {
+                features.push(
+                    `${localize('ranges.label')} ${localize('ranges', item.system.range)}`,
+                );
+            }
+        } else if (item.type === 'armor') {
+            features.push(`${localize('gear.armor.rating_abbr')} ${item.system.rating || 0}`);
+
+            features.push(
+                `${localize('gear.armor.blight_protection_abbr')} ${
+                    item.system.blight_protection || 0
+                }`,
+            );
+        }
+        if (features.length === 0) return '';
+        return `(${features.join(', ')})`;
+    });
 }

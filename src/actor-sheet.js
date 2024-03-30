@@ -9,6 +9,8 @@ const ALLOWED_ITEMS = {
 };
 
 export class CoriolisActorSheet extends ActorSheet {
+    #contextmenu = null;
+
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             classes: [ID, 'sheet', 'actor', 'coriolis-window'],
@@ -31,14 +33,14 @@ export class CoriolisActorSheet extends ActorSheet {
                 ];
                 break;
             case 'npc':
-                options.width = 580;
-                options.height = 640;
+                options.width = 450;
+                options.height = 580;
                 break;
             default:
         }
 
         super(object, options);
-        this.locked = true;
+        this.setup = {};
     }
 
     /** @override */
@@ -59,14 +61,17 @@ export class CoriolisActorSheet extends ActorSheet {
     async getData(options) {
         const context = await super.getData(options);
         context.systemData = context.data.system;
-        context.locked = this.locked;
+        context.setup = this.setup;
+
+        this._prepareItems(context);
 
         if (context.data.type === 'character') {
             this._prepareCharacterData(context);
         } else if (context.data.type === 'crew') {
             this._prepareCrewData(context);
+        } else if (context.data.type === 'npc') {
+            this._prepareNpcData(context);
         }
-        this._prepareItems(context);
 
         return context;
     }
@@ -80,6 +85,15 @@ export class CoriolisActorSheet extends ActorSheet {
             supply: actor.system.supply || 0,
         }));
         context.supply = context.crew.reduce((supply, member) => supply + member.supply, 0);
+    }
+
+    _prepareNpcData(context) {
+        context.attributes = Object.keys(this.actor.system.attributes).map((a) => ({
+            id: a,
+            value: this.actor.system.attributes[a] || 0,
+        }));
+
+        context.equipment = [...context.weapons, ...context.armor, ...context.gear];
     }
 
     _prepareCharacterData(context) {
@@ -158,14 +172,26 @@ export class CoriolisActorSheet extends ActorSheet {
 
         if (!this.isEditable) return;
 
-        switch (this.actor.data.type) {
+        switch (this.actor.type) {
             case 'character':
                 this._activateCharacterListeners(html);
                 break;
             case 'crew':
                 this._activateCrewListeners(html);
                 break;
+            case 'npc':
+                this._activateNpcListeners(html);
+                break;
         }
+
+        if (this.actor.type === 'npc' || this.actor.type === 'character') {
+            html.find('.setup-toggle').on('click', (e) => this._onToggleSetup(e));
+            html.find('.attribute-plus').on('click', (e) => this._onUpdateAttribute(e, 1));
+            html.find('.attribute-minus').on('click', (e) => this._onUpdateAttribute(e, -1));
+            html.find('.attribute.rollable').on('click', (e) => this._onRollAttribute(e));
+            html.find('.stat-counter-dot').on('click', (e) => this._onUpdateStat(e));
+        }
+
         this._activateItemListeners(html);
 
         let handler = (ev) => this._onDragStart(ev);
@@ -193,17 +219,52 @@ export class CoriolisActorSheet extends ActorSheet {
     }
 
     _activateCharacterListeners(html) {
-        html.find('.attributes-edit-switch').on('click', (e) => this._onToggleLocked(e));
         html.find('.attribute-condition').on('click', (e) => this._onToggleCondition(e));
-        html.find('.attribute-plus').on('click', (e) => this._onUpdateAttribute(e, 1));
-        html.find('.attribute-minus').on('click', (e) => this._onUpdateAttribute(e, -1));
-        html.find('.attribute.rollable').on('click', (e) => this._onRollAttribute(e));
-
-        html.find('.stat-counter-dot').on('click', (e) => this._onUpdateStat(e));
     }
 
     _activateCrewListeners(html) {
         html.find('.delete-crew').on('click', (e) => this._onDeleteCrewMember(e));
+    }
+
+    _activateNpcListeners(html) {
+        html.find('.health-plus').on('click', (e) => this._onUpdateMaxHealth(e, 1));
+        html.find('.health-minus').on('click', (e) => this._onUpdateMaxHealth(e, -1));
+
+        this.#contextmenu = ContextMenu.create(
+            this,
+            html,
+            "[data-context='equipment']",
+            [
+                {
+                    name: localize('gear.label'),
+                    icon: '<i class="fas fa-gear"></i>',
+                    callback: () => {
+                        this._onAddItem(undefined, 'gear');
+                    },
+                },
+                {
+                    name: localize('gear.weapons.label_single'),
+                    icon: "<i class='fas fa-gun'></i>",
+                    callback: () => {
+                        this._onAddItem(undefined, 'weapon');
+                    },
+                },
+                {
+                    name: localize('gear.armor.label'),
+                    icon: "<i class='fas fa-shirt'></i>",
+                    callback: () => {
+                        this._onAddItem(undefined, 'armor');
+                    },
+                },
+            ],
+            {eventName: 'click'},
+        );
+        this.#contextmenu._setPosition = function (html, target) {
+            html.addClass('expand-down');
+            target.append(html);
+            target.addClass('context');
+            target.addClass('add-equipment-menu');
+        };
     }
 
     _activateItemListeners(html) {
@@ -215,9 +276,14 @@ export class CoriolisActorSheet extends ActorSheet {
         html.find('.toggle-item').on('click', (e) => this._onToggleItem(e));
     }
 
-    async _onAddItem(e) {
-        e.preventDefault();
-        const type = e.currentTarget.dataset.type;
+    async _onAddItem(e, type = undefined) {
+        if (e) {
+            e.preventDefault();
+            type = e.currentTarget.dataset.type;
+        }
+
+        if (!type) return;
+
         const name = `${localize('new')} ${game.i18n.localize('TYPES.Item.' + type)}`;
         const itemData = {name, type, data: {}};
         return await this.actor
@@ -227,14 +293,16 @@ export class CoriolisActorSheet extends ActorSheet {
 
     _onRollAttribute(e) {
         e.preventDefault();
-        if (!this.locked) return;
+        e.stopPropagation();
+        if (this.setup.attributes) return;
         const attr = e.currentTarget.dataset.attribute;
         roll(this.actor, attr);
     }
 
-    _onToggleLocked(e) {
+    _onToggleSetup(e) {
         e.preventDefault();
-        this.locked = !this.locked;
+        const section = e.currentTarget.dataset.section;
+        this.setup[section] = !this.setup[section];
         this._render();
     }
 
@@ -249,15 +317,29 @@ export class CoriolisActorSheet extends ActorSheet {
 
     _onUpdateAttribute(e, delta) {
         e.preventDefault();
-        const key = e.currentTarget.dataset.attribute;
-        const attr = this.actor.data.system.attributes[key];
+        const a = e.currentTarget.dataset.attribute;
+        const attr = this.actor.attribute(a);
         if (!attr) return;
 
-        const newValue = attr.value + delta;
+        const newValue = attr + delta;
         if (newValue < 0 || newValue > 6) return;
 
+        const key =
+            this.actor.type === 'character'
+                ? `system.attributes.${a}.value`
+                : `system.attributes.${a}`;
+
         this.actor.update({
-            [`system.attributes.${key}.value`]: newValue,
+            [key]: newValue,
+        });
+    }
+
+    _onUpdateMaxHealth(e, delta) {
+        e.preventDefault();
+        const newValue = this.actor.system.health.max + delta;
+        if (newValue < 1) return;
+        return this.actor.update({
+            'system.health.max': newValue,
         });
     }
 

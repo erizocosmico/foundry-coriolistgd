@@ -14,6 +14,8 @@
     "no": "No",
     "cancel": "Cancelar",
     "supply": "Suministros",
+    "save": "Guardar",
+    "done": "Hecho",
 
     "tabs": {
       "overview": "General",
@@ -68,7 +70,8 @@
       "no_attribute": "Sin atributo",
       "attribute": "Atributo",
       "empty": {
-        "character": "El personaje no tiene talentos."
+        "character": "El personaje no tiene talentos.",
+        "npc": "No hay talentos."
       }
     },
 
@@ -125,6 +128,7 @@
       "weapons": {
         "add": "Añadir arma",
         "label": "Armas",
+        "label_single": "Arma",
         "type": "Tipo de arma",
         "melee": "Cuerpo a cuerpo",
         "ranged": "A distancia",
@@ -142,7 +146,9 @@
         "add": "Añadir armadura",
         "label": "Armadura",
         "rating": "Valor de armadura",
+        "rating_abbr": "VA",
         "blight_protection": "Prot. contra ruina",
+        "blight_protection_abbr": "PR",
         "wear": "Ponerse la armadura",
         "remove": "Quitarse la armadura"
       }
@@ -165,6 +171,11 @@
     "crew": {
       "role": "Rol",
       "empty": "No hay miembros en esta banda. Arrastra aquí un personaje para añadirlos."
+    },
+
+    "npc": {
+      "equipment": "Equipo",
+      "no_description": "No hay descripción."
     },
 
     "rolls": {

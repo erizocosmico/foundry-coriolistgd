@@ -18,12 +18,120 @@
         }
     }
 
+    .window-content {
+        padding: 0;
+    }
+
     .character {
+        padding: 0.5rem;
         @import 'character';
     }
 
     .crew {
+        padding: 0.5rem;
         @import 'crew';
+    }
+
+    .npc {
+        @import 'npc';
+    }
+
+    .npc .attributes.edit,
+    .character .attributes {
+        .attributes-list {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .attribute {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+
+            &.rollable {
+                cursor: pointer;
+            }
+
+            &-title {
+                text-transform: uppercase;
+                letter-spacing: 0.1rem;
+                font-weight: bold;
+                font-size: 0.7rem;
+            }
+
+            &-value,
+            &-edit input {
+                background-color: $color-beige;
+                color: $color-black;
+                font-size: 2rem;
+                font-weight: bold;
+                font-family: $font-sans;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                border: 2px solid $color-black;
+                outline: 1px solid $color-gold;
+                flex-shrink: 0;
+            }
+
+            &-edit {
+                display: flex;
+
+                .attribute-plus,
+                .attribute-minus {
+                    color: $color-gold;
+                    border: none;
+
+                    &:hover,
+                    &:focus {
+                        color: $color-beige;
+                        box-shadow: none;
+                    }
+                }
+            }
+
+            &-condition {
+                background-color: $color-beige;
+                width: 15px;
+                height: 15px;
+                border-radius: 50%;
+                border: 2px solid $color-black;
+                outline: 1px solid $color-gold;
+                margin-top: -7px;
+                cursor: pointer;
+
+                &.marked {
+                    background-color: $color-gold-darker;
+                }
+
+                &-label {
+                    margin: 0;
+                    padding: 0.2rem 0 0 0;
+                    font-weight: normal;
+                    text-transform: uppercase;
+                    font-size: 0.6rem;
+                    letter-spacing: 0.1rem;
+                    cursor: initial;
+                    pointer-events: none;
+                }
+            }
+
+            & + .attribute:before {
+                content: ' ';
+                position: absolute;
+                top: 30px;
+                bottom: 30px;
+                width: 1px;
+                left: -0.5rem;
+                background-color: transparentize($color-gold, 0.7);
+            }
+        }
     }
 
     .warning {

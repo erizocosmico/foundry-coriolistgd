@@ -56,9 +56,7 @@
         border: 1px solid $color-gold;
 
         &:hover {
-            box-shadow:
-                0 0 5px $color-gold-darker,
-                0 0 5px $color-gold-darker inset;
+            box-shadow: 0 0 5px $color-gold-darker, 0 0 5px $color-gold-darker inset;
             text-shadow: 0 0 10px $color-gold-darker;
             color: $color-gold-dark;
             border-color: $color-gold-dark;
