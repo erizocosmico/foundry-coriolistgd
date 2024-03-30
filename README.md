@@ -21,12 +21,8 @@ This system requires the `yze-combat` module, which will be installed with it.
 -   Character sheet.
 -   Item sheets.
 -   Rolls from character sheet.
-
-### Planned features
-
 -   NPC sheet.
 -   Crew sheet.
--   More automation.
 
 ### System development
 
