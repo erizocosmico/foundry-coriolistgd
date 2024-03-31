@@ -1,5 +1,9 @@
 # Changelog
 
+### v0.4.1
+
+-   Fixed health, hope and heart not being updated when attributes change.
+
 ### v0.4.0
 
 -   Added NPC sheet.

@@ -59,8 +59,11 @@ export class CoriolisActor extends Actor {
     }
 
     _preUpdate(changes, ...args) {
-        if ((this.type === 'character' || this.type === 'npc') && changedAttributeValue(changes)) {
-            if (!attributeChangesValid(changes)) return false;
+        if (
+            (this.type === 'character' || this.type === 'npc') &&
+            changedAttributeValue(this.type, changes)
+        ) {
+            if (!attributeChangesValid(this.type, changes)) return false;
             if (this.type === 'character') {
                 this._updateStats(changes);
             }
