@@ -17,7 +17,7 @@
       {{#if (eq systemData.type 'physical')}}
         <div class='field width-small'>
           <label for='system.lethal'>{{loc 'injuries.lethal'}}</label>
-          <select name='system.lethal' data-dtype='Number'>
+          <select name='system.lethal' data-dtype='Boolean'>
             {{selectOptions yesOrNo selected=systemData.lethal}}
           </select>
         </div>

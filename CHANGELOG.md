@@ -1,5 +1,9 @@
 # Changelog
 
+### v0.4.2
+
+-   Fixed "Lethal" field for Critical Injuries.
+
 ### v0.4.1
 
 -   Fixed health, hope and heart not being updated when attributes change.
