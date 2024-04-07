@@ -1,6 +1,6 @@
 {
   "Actor": {
-    "types": ["character", "crew", "npc"],
+    "types": ["character", "crew", "npc", "creature"],
     "htmlFields": ["notes", "appearance", "quirk"],
     "character": {
       "archetype": "",
@@ -87,10 +87,30 @@
         "value": 6
       },
       "ferocity": 1
+    },
+    "creature": {
+      "notes": "",
+      "size": "",
+      "health": {
+        "max": 6,
+        "value": 6
+      },
+      "last_attack": "",
+      "armor": 0,
+      "ferocity": 1
     }
   },
   "Item": {
-    "types": ["gear", "weapon", "armor", "talent", "bird_ability", "injury"],
+    "types": [
+      "gear",
+      "weapon",
+      "armor",
+      "talent",
+      "bird_ability",
+      "injury",
+      "creature_attack",
+      "creature_ability"
+    ],
     "htmlFields": ["description"],
     "gear": {
       "description": "",
@@ -140,6 +160,16 @@
       "effects": "",
       "recovery": "",
       "description": ""
+    },
+    "creature_ability": {
+      "description": ""
+    },
+    "creature_attack": {
+      "description": "",
+      "base_dice": 0,
+      "damage": 0,
+      "blight": 0,
+      "despair": 0
     }
   }
 }

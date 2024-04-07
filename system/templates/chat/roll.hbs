@@ -78,6 +78,21 @@
             <div class='coriolis-message-feature-value'>{{damage}}</div>
           </div>
         {{/if}}
+
+        {{#if despair}}
+          <div class='coriolis-message-feature'>
+            <div class='coriolis-message-feature-label'>{{loc 'creature.attacks.despair'}}</div>
+            <div class='coriolis-message-feature-value'>{{despair}}</div>
+          </div>
+        {{/if}}
+
+        {{#if blight}}
+          <div class='coriolis-message-feature'>
+            <div class='coriolis-message-feature-label'>{{loc 'creature.attacks.blight'}}</div>
+            <div class='coriolis-message-feature-value'>{{blight}}</div>
+          </div>
+        {{/if}}
+
         {{#if item.system.crit}}
           <div class='coriolis-message-feature'>
             <div class='coriolis-message-feature-label'>{{loc 'rolls.crit'}}</div>

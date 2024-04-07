@@ -1,6 +1,6 @@
 import {ID} from './config';
 import {localize} from './helpers/i18n';
-import {roll, rollArmor, rollBirdAbility} from './rolls';
+import {roll, rollArmor, rollBirdAbility, rollCreatureAttack} from './rolls';
 
 const MAX_WEAPONS_AT_HAND = 3;
 
@@ -43,11 +43,15 @@ export class CoriolisItem extends Item {
         if (!actor) return;
 
         if (this.type === 'armor') {
-            return await rollArmor(actor, this);
+            return await rollArmor(actor, this.system.rating, this);
         }
 
         if (this.type === 'bird_ability') {
             return await rollBirdAbility(actor, this);
+        }
+
+        if (this.type === 'creature_attack') {
+            return await rollCreatureAttack(actor, this);
         }
 
         let attribute = this.system?.attribute;
@@ -67,4 +71,4 @@ export class CoriolisItem extends Item {
     }
 }
 
-const ROLLABLE_ITEMS = ['armor', 'weapon', 'gear', 'talent', 'bird_ability'];
+const ROLLABLE_ITEMS = ['armor', 'weapon', 'gear', 'talent', 'bird_ability', 'creature_attack'];

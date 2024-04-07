@@ -1,0 +1,41 @@
+<form class='{{cssClass}}' autocomplete='off'>
+  <header class='sheet-header'>
+    <img src='{{item.img}}' class='item-img' data-edit='img' title='{{item.name}}' />
+    <div class='field big'>
+      <input name='name' type='text' value='{{item.name}}' placeholder='{{loc "name"}}' />
+    </div>
+  </header>
+
+  <section>
+    <div class='field-group'>
+      <div class='field centered'>
+        <label for='system.base_dice'>{{loc 'creature.attacks.base_dice'}}</label>
+        {{numberInput systemData.base_dice name='system.base_dice' step=1 min=0 max=99}}
+      </div>
+      <div class='field centered width-small'>
+        <label for='system.damage'>{{loc 'creature.attacks.damage'}}</label>
+        {{numberInput systemData.damage name='system.damage' step=1 min=0 max=99}}
+      </div>
+      <div class='field centered width-small'>
+        <label for='system.despair'>{{loc 'creature.attacks.despair'}}</label>
+        {{numberInput systemData.despair name='system.despair' step=1 min=0 max=99}}
+      </div>
+      <div class='field centered width-small'>
+        <label for='system.blight'>{{loc 'creature.attacks.blight'}}</label>
+        {{numberInput systemData.blight name='system.blight' step=1 min=0 max=99}}
+      </div>
+    </div>
+    <div class='field'>
+      <label>{{loc 'description'}}</label>
+      {{editor
+        content=systemData.description
+        target='system.description'
+        rollData=rollData
+        button=true
+        owner=owner
+        engine='prosemirror'
+        editable=editable
+      }}
+    </div>
+  </section>
+</form>

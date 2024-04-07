@@ -1,11 +1,12 @@
 import {ID} from './config';
 import {localize} from './helpers/i18n';
-import {roll} from './rolls';
+import {roll, rollArmor} from './rolls';
 
 const ALLOWED_ITEMS = {
     character: ['gear', 'weapon', 'armor', 'talent', 'injury'],
     npc: ['gear', 'weapon', 'armor', 'talent'],
     crew: ['bird_ability', 'armor'],
+    creature: ['creature_ability', 'creature_attack'],
 };
 
 export class CoriolisActorSheet extends ActorSheet {
@@ -33,6 +34,7 @@ export class CoriolisActorSheet extends ActorSheet {
                 ];
                 break;
             case 'npc':
+            case 'creature':
                 options.width = 450;
                 options.height = 580;
                 break;
@@ -138,6 +140,8 @@ export class CoriolisActorSheet extends ActorSheet {
         context.birdAbilities = [];
         context.weaponsAtHand = [];
         context.wornArmor = [];
+        context.creatureAbilities = [];
+        context.creatureAttacks = [];
 
         for (let i of context.items) {
             i.img = i.img || DEFAULT_TOKEN;
@@ -162,6 +166,12 @@ export class CoriolisActorSheet extends ActorSheet {
                     if (i.system.worn) context.wornArmor.push(i);
                     context.armor.push(i);
                     break;
+                case 'creature_ability':
+                    context.creatureAbilities.push(i);
+                    break;
+                case 'creature_attack':
+                    context.creatureAttacks.push(i);
+                    break;
             }
         }
     }
@@ -181,15 +191,21 @@ export class CoriolisActorSheet extends ActorSheet {
                 break;
             case 'npc':
                 this._activateNpcListeners(html);
+                this._activateNpcHealthListeners(html);
+                break;
+            case 'creature':
+                this._activateNpcHealthListeners(html);
+                this._activateCreatureListeners(html);
                 break;
         }
 
+        html.find('.setup-toggle').on('click', (e) => this._onToggleSetup(e));
+        html.find('.stat-counter-dot').on('click', (e) => this._onUpdateStat(e));
+
         if (this.actor.type === 'npc' || this.actor.type === 'character') {
-            html.find('.setup-toggle').on('click', (e) => this._onToggleSetup(e));
             html.find('.attribute-plus').on('click', (e) => this._onUpdateAttribute(e, 1));
             html.find('.attribute-minus').on('click', (e) => this._onUpdateAttribute(e, -1));
             html.find('.attribute.rollable').on('click', (e) => this._onRollAttribute(e));
-            html.find('.stat-counter-dot').on('click', (e) => this._onUpdateStat(e));
         }
 
         this._activateItemListeners(html);
@@ -226,10 +242,17 @@ export class CoriolisActorSheet extends ActorSheet {
         html.find('.delete-crew').on('click', (e) => this._onDeleteCrewMember(e));
     }
 
-    _activateNpcListeners(html) {
+    _activateNpcHealthListeners(html) {
         html.find('.health-plus').on('click', (e) => this._onUpdateMaxHealth(e, 1));
         html.find('.health-minus').on('click', (e) => this._onUpdateMaxHealth(e, -1));
+    }
 
+    _activateCreatureListeners(html) {
+        html.find('.roll-armor').on('click', (e) => this._onRollCreatureArmor(e));
+        html.find('.roll-random-attack').on('click', (e) => this._onRollCreatureRandomAttack(e));
+    }
+
+    _activateNpcListeners(html) {
         this.#contextmenu = ContextMenu.create(
             this,
             html,
@@ -407,6 +430,30 @@ export class CoriolisActorSheet extends ActorSheet {
         if (item) {
             item.update({[`system.${prop}`]: !item.system[prop]});
         }
+    }
+
+    _onRollCreatureArmor(e) {
+        e.preventDefault();
+        return rollArmor(this.actor, this.actor.system.armor);
+    }
+
+    async _onRollCreatureRandomAttack(e) {
+        e.preventDefault();
+
+        const attacks = this.actor.items.filter((i) => i.type === 'creature_attack');
+        if (attacks.length === 0) return;
+        if (attacks.length === 1) return attacks[0].roll(this.actor);
+
+        const last = this.actor.system.last_attack;
+
+        const index = Math.floor(Math.random() * attacks.length);
+        if (attacks[index]._id === last) {
+            index = (index + 1) % attacks.length;
+        }
+
+        await this.actor.update({'system.last_attack': attacks[index]._id});
+
+        return attacks[index].roll(this.actor);
     }
 }
 

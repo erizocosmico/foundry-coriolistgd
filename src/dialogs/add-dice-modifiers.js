@@ -18,6 +18,8 @@ export default async function addDiceModifiers({
         gearDice: gear,
         attribute,
         condition,
+        isAttack: item?.type === 'creature_attack',
+        item,
     };
 
     let baseMod = 0;

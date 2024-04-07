@@ -43,9 +43,9 @@
   <section>
     <h2>
       <div>
-        <span>{{loc 'attributes.label'}}</span>
-        <button class='attributes-setup setup-toggle' data-section='attributes'>
-          {{#if setup.attributes}}
+        <span>{{loc 'creature.properties'}}</span>
+        <button class='properties-setup setup-toggle' data-section='properties'>
+          {{#if setup.properties}}
             <i class='fa fa-check'></i>
           {{else}}
             <i class='fa fa-gear'></i>
@@ -53,36 +53,33 @@
         </button>
       </div>
     </h2>
+    <div class='creature-properties'>
+      <div class='creature-property'>
+        <label for='system.ferocity'>{{loc 'creature.ferocity'}}</label>
+        {{#if setup.properties}}
+          {{numberInput systemData.ferocity name='system.ferocity' step=1 min=1 max=99}}
+        {{else}}
+          <span>{{systemData.ferocity}}</span>
+        {{/if}}
+      </div>
 
-    <div class='attributes {{ifThen setup.attributes "edit" ""}}'>
-      {{#if setup.attributes}}
-        <div class='attributes-list'>
-          {{#each attributes as |a|}}
-            <div class='attribute {{ifThen @root.setup.attributes "rollable" ""}}' data-attribute='{{key}}'>
-              <h4 class='attribute-title'>{{loc 'attributes' a.id 'name'}}</h4>
-              <div class='attribute-edit'>
-                <button class='attribute-minus' data-attribute='{{a.id}}'>
-                  <i class='fa fa-minus'></i>
-                </button>
-                {{numberInput a.value name=(concat 'system.attributes.' a.id) step=1 min=2 max=6}}
-                <button class='attribute-plus' data-attribute='{{a.id}}'>
-                  <i class='fa fa-plus'></i>
-                </button>
-              </div>
-            </div>
-          {{/each}}
-        </div>
-      {{else}}
-        {{#each attributes as |a|}}
-          {{#if (gt @index 0)}}<span>, </span>{{/if}}
-          <a href='#' class='attribute rollable' data-attribute='{{a.id}}'><strong>{{loc
-                'attributes'
-                a.id
-                'name'
-              }}</strong>
-            {{a.value}}</a>
-        {{/each}}
-      {{/if}}
+      <div class='creature-property'>
+        <label for='system.size'>{{loc 'creature.size'}}</label>
+        {{#if setup.properties}}
+          <input type='text' name='system.size' value='{{systemData.size}}' />
+        {{else}}
+          <span>{{orElse systemData.size '-'}}</span>
+        {{/if}}
+      </div>
+
+      <div class='creature-property {{ifThen setup.properties "" "roll-armor"}}'>
+        <label for='system.armor'>{{loc 'creature.armor_rating'}}</label>
+        {{#if setup.properties}}
+          {{numberInput systemData.armor name='system.armor' step=1 min=0 max=99}}
+        {{else}}
+          <span>{{systemData.armor}}</span>
+        {{/if}}
+      </div>
     </div>
   </section>
 
@@ -134,37 +131,22 @@
   <section>
     <h2>
       <div>
-        <span>{{loc 'talents.label'}}</span>
-        <button class='add-item' data-type='talent'>
+        <span>{{loc 'creature.abilities.label'}}</span>
+        <button class='add-item' data-type='creature_ability'>
           <i class='fa fa-plus'></i>
         </button>
       </div>
     </h2>
 
-    {{#hasItems talents}}
+    {{#hasItems creatureAbilities}}
       <ul class='item-list item-list-npc'>
-        {{#each talents as |t|}}
+        {{#each creatureAbilities as |t|}}
           <li class='item' data-item-id='{{t._id}}'>
             <h3 class='item-title'>
-              {{#if t.system.bonus}}
-                <a
-                  href='#'
-                  class='roll-item'
-                  title='{{loc "roll"}}'
-                  data-id='{{t._id}}'
-                  data-type='talent'
-                >{{t.name}}:</a>
-              {{else}}
-                {{t.name}}:
-              {{/if}}
+              {{t.name}}
             </h3>
             <div class='item-description'>{{{t.system.description}}}</div>
             <div class='item-actions'>
-              {{#if t.system.bonus}}
-                <button class='item-action roll-item' data-type='talent' data-id='{{t._id}}' title='{{loc "roll"}}'>
-                  <i class='fa fa-dice'></i>
-                </button>
-              {{/if}}
               <button
                 class='item-action show-item'
                 data-type='talent'
@@ -184,34 +166,37 @@
         {{/each}}
       </ul>
     {{else}}
-      <div class='warning'>{{loc 'talents.empty.npc'}}</div>
+      <div class='warning'>{{loc 'creature.abilities.empty'}}</div>
     {{/hasItems}}
   </section>
 
   <section>
     <h2>
       <div>
-        <span>{{loc 'npc.equipment'}}</span>
-        <button class='add-equipment' data-context='equipment'>
+        <button class='roll-random-attack'>
+          <i class='fa fa-dice'></i>
+        </button>
+        <span>{{loc 'creature.attacks.label'}}</span>
+        <button class='add-item' data-type='creature_attack'>
           <i class='fa fa-plus'></i>
         </button>
       </div>
     </h2>
 
-    {{#hasItems equipment}}
+    {{#hasItems creatureAttacks}}
       <ul class='item-list item-list-npc'>
-        {{#each equipment as |e|}}
+        {{#each creatureAttacks as |e|}}
           <li class='item' data-item-id='{{t._id}}'>
-            <div class='item-gear'>
+            <h3 class='item-title'>
               <a
                 href='#'
                 class='roll-item item-title'
                 title='{{loc "roll"}}'
                 data-id='{{e._id}}'
-                data-type='talent'
-              >{{e.name}}</a>
-              <span class='item-gear-features'>{{npcItemFeatures e}}</span>
-            </div>
+                data-type='{{e.type}}'
+              >{{attackNumber @index}}. {{e.name}}</a>
+            </h3>
+            <div class='item-description'>{{{e.system.description}}}</div>
             <div class='item-actions'>
               <button class='item-action roll-item' data-type='{{e.type}}' data-id='{{e._id}}' title='{{loc "roll"}}'>
                 <i class='fa fa-dice'></i>
@@ -240,7 +225,7 @@
         {{/each}}
       </ul>
     {{else}}
-      <div class='warning'>{{loc 'npc.no_equipment'}}</div>
+      <div class='warning'>{{loc 'creature.attacks.empty'}}</div>
     {{/hasItems}}
   </section>
 </form>
