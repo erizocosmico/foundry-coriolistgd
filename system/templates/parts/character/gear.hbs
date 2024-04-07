@@ -33,7 +33,7 @@
 
               {{#if g.system.equipped}}
                 <div class='item-status' title='{{loc "gear.equipped"}}'>
-                  <i class='fa fa-box'></i>
+                  <i class='fa fa-suitcase'></i>
                 </div>
               {{/if}}
             </div>
@@ -51,7 +51,7 @@
             data-id='{{g._id}}'
             title='{{ifThen g.system.equipped (loc "gear.unequip") (loc "gear.equip")}}'
           >
-            <i class='fa fa-{{ifThen g.system.equipped "xmark" "box"}}'></i>
+            <i class='fa fa-{{ifThen g.system.equipped "xmark" "suitcase"}}'></i>
           </button>
           <button class='item-action show-item' data-type='gear' data-id='{{g._id}}' title='{{loc "post_to_chat"}}'>
             <i class='fa fa-comment'></i>
@@ -118,7 +118,7 @@
 
               {{#if g.system.equipped}}
                 <div class='item-status' title='{{loc "gear.equipped"}}'>
-                  <i class='fa fa-box'></i>
+                  <i class='fa fa-suitcase'></i>
                 </div>
               {{/if}}
 
@@ -141,7 +141,7 @@
             data-id='{{g._id}}'
             title='{{ifThen g.system.at_hand (loc "gear.weapons.move_to_inventory") (loc "gear.weapons.carry_hand")}}'
           >
-            <i class='fa fa-{{ifThen g.system.at_hand "box" "hand"}}'></i>
+            <i class='fa fa-{{ifThen g.system.at_hand "xmark" "hand"}}'></i>
           </button>
 
           {{#unless g.system.at_hand}}
@@ -151,7 +151,7 @@
               data-id='{{g._id}}'
               title='{{ifThen g.system.equipped (loc "gear.unequip") (loc "gear.equip")}}'
             >
-              <i class='fa fa-{{ifThen g.system.equipped "xmark" "box"}}'></i>
+              <i class='fa fa-{{ifThen g.system.equipped "xmark" "suitcase"}}'></i>
             </button>
           {{/unless}}
           <button class='item-action show-item' data-type='gear' data-id='{{g._id}}' title='{{loc "post_to_chat"}}'>

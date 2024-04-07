@@ -137,7 +137,7 @@
         "at_hand": "A mano",
         "crit": "Crít",
         "carry_hand": "Llevar a mano",
-        "move_to_inventory": "Devolver al inventario"
+        "move_to_inventory": "No llevar a mano"
       },
       "armor": {
         "equip": "Equipar armadura",

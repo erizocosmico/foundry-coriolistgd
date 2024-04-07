@@ -137,7 +137,7 @@
         "at_hand": "At hand",
         "crit": "Crit",
         "carry_hand": "Carry at hand",
-        "move_to_inventory": "Move it back to inventory"
+        "move_to_inventory": "Do not carry at hand"
       },
       "armor": {
         "equip": "Equip armor",
