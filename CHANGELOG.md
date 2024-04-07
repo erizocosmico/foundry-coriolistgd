@@ -1,5 +1,9 @@
 # Changelog
 
+### v0.5.1
+
+-   Fixed inline rolls.
+
 ### v0.5.0
 
 -   Added Creature sheets.

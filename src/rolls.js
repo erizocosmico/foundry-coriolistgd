@@ -1,5 +1,5 @@
 import {createMessage} from './chat.js';
-import {ATTRIBUTES, ID} from './config.js';
+import {ID} from './config.js';
 import addDiceModifiers from './dialogs/add-dice-modifiers.js';
 import selectActor from './dialogs/select-actor.js';
 import selectAttribute from './dialogs/select-attribute.js';
@@ -16,7 +16,7 @@ export class CoriolisBaseDie extends Die {
 
     /** @override */
     get total() {
-        return this.results.length;
+        return this.results.filter((r) => r.result === 6).length;
     }
 
     /** @override */
@@ -43,7 +43,7 @@ export class CoriolisGearDie extends Die {
 
     /** @override */
     get total() {
-        return this.results.length;
+        return this.results.filter((r) => r.result === 6).length;
     }
 
     /** @override */
