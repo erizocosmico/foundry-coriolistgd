@@ -14,7 +14,11 @@
 
       <ul class='roll-dice-info'>
         <li>
-          <div class='roll-dice-info-label'>{{loc 'attributes' attribute 'name'}}</div>
+          {{#if isAttack}}
+            <div class='roll-dice-info-label'>{{loc 'creature.attacks.label_single'}}</div>
+          {{else}}
+            <div class='roll-dice-info-label'>{{loc 'attributes' attribute 'name'}}</div>
+          {{/if}}
           <div class='roll-dice-info-value'>{{baseDice}}</div>
         </li>
         {{#if isTalent}}

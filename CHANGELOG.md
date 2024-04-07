@@ -1,5 +1,9 @@
 # Changelog
 
+### v0.5.0
+
+-   Added Creature sheets.
+
 ### v0.4.2
 
 -   Fixed "Lethal" field for Critical Injuries.

@@ -32,8 +32,13 @@
         @import 'crew';
     }
 
-    .npc {
+    .npc,
+    .creature {
         @import 'npc';
+    }
+
+    .creature {
+        @import 'creature';
     }
 
     .npc .attributes.edit,

@@ -115,8 +115,14 @@ export function registerDice3D(dice3d) {
     });
 }
 
-export async function rollArmor(actor, item) {
-    const roll = await new Roll(`${item.system.rating}db`, {}).evaluate();
+export async function rollArmor(actor, value, item = undefined) {
+    const roll = await new Roll(`${value}db`, {}).evaluate();
+    if (!item) {
+        item = {
+            type: 'armor',
+            name: `${localize('creature.armor')}`,
+        };
+    }
     return await postRoll(actor, undefined, item, undefined, undefined, roll);
 }
 
@@ -131,6 +137,37 @@ export async function rollBirdAbility(crew, item) {
 
 function hasGearBonus(item) {
     return !(item?.type === 'talent' || item?.type === 'bird_ability');
+}
+
+export async function rollCreatureAttack(actor, item) {
+    let base = item.system.base_dice;
+    let gear = 0;
+
+    let baseMod, gearMod;
+    try {
+        const modifiers = await addDiceModifiers({
+            base,
+            gear,
+            baseBonus: 0,
+            attribute: undefined,
+            condition: false,
+            item,
+        });
+        baseMod = modifiers.base;
+        gearMod = modifiers.gear;
+    } catch (err) {
+        if (err) console.error(err);
+        return null;
+    }
+
+    base += baseMod;
+    base = Math.max(1, base);
+
+    gear += gearMod;
+    gear = Math.max(0, gear);
+
+    const roll = await new Roll(`${base}db + ${gear}dg`, {}).evaluate();
+    return await postRoll(actor, undefined, item, baseMod, gearMod, roll);
 }
 
 export async function roll(actor, attribute = undefined, item = undefined) {
@@ -275,11 +312,29 @@ function prevRollData(actor, message, html) {
     };
 }
 
-async function postRoll(actor, attribute, item = undefined, baseMod = 0, gearMod = 0, roll) {
+async function postRoll(
+    actor,
+    attribute = undefined,
+    item = undefined,
+    baseMod = 0,
+    gearMod = 0,
+    roll,
+) {
     const numSuccesses = successes(roll);
+
     let damage = undefined;
-    if (item && item.type === 'weapon') {
+    if (item?.system?.damage) {
         damage = (item.system.damage || 0) + Math.max(0, numSuccesses - 1);
+    }
+
+    let despair = undefined;
+    if (item?.system?.despair) {
+        despair = (item.system.despair || 0) + Math.max(0, numSuccesses - 1);
+    }
+
+    let blight = undefined;
+    if (item?.system?.blight) {
+        blight = (item.system.blight || 0) + Math.max(0, numSuccesses - 1);
     }
 
     const rollData = {
@@ -294,9 +349,14 @@ async function postRoll(actor, attribute, item = undefined, baseMod = 0, gearMod
             numSuccesses === 1 ? labelFor('rolls', 'success') : labelFor('rolls', 'successes'),
         success: numSuccesses > 0,
         fail: numSuccesses === 0,
-        canPush: actor.type === 'character' && item?.type !== 'armor',
+        canPush:
+            actor.type === 'character' &&
+            item?.type !== 'armor' &&
+            item?.type !== 'creature_attack',
         pushed: false,
         damage,
+        despair,
+        blight,
         item,
     };
 

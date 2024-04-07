@@ -1,0 +1,52 @@
+.creature-properties {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.5rem;
+}
+
+.creature-property {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+
+    &.roll-armor {
+        cursor: pointer;
+
+        &:hover {
+            text-shadow: 0 0 5px $color-gold-dark;
+        }
+
+        label {
+            cursor: pointer;
+        }
+    }
+
+    label {
+        text-transform: uppercase;
+        font-weight: bold;
+        letter-spacing: 0.05rem;
+        font-size: 0.7rem;
+    }
+
+    span {
+        font-family: $font-sans;
+        font-size: 1rem;
+        font-weight: bold;
+    }
+
+    input {
+        font-family: $font-sans;
+        font-size: 1rem;
+        font-weight: bold;
+        color: $color-beige;
+        text-align: center;
+        border-radius: 0;
+        margin-top: 0.5rem;
+        border: 2px solid transparentize($color-gold, 0.5);
+
+        &:hover {
+            box-shadow: 0 0 5px $color-gold-dark;
+        }
+    }
+}

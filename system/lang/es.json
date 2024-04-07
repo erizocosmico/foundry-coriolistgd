@@ -178,6 +178,27 @@
       "no_description": "No hay descripción."
     },
 
+    "creature": {
+      "properties": "Propiedades",
+      "armor": "Armadura",
+      "armor_rating": "Valor de armadura",
+      "size": "Tamaño",
+      "ferocity": "Ferocidad",
+      "attacks": {
+        "label": "Ataques",
+        "label_single": "Ataque",
+        "base_dice": "Dados base",
+        "damage": "Daño",
+        "blight": "Ruina",
+        "despair": "Desesperación",
+        "empty": "La criatura no tiene ataques."
+      },
+      "abilities": {
+        "label": "Habilidades",
+        "empty": "La criatura no tiene habilidades."
+      }
+    },
+
     "rolls": {
       "gear_damage": "Daño al equipo",
       "hope_lost": "Esperanza perdida",
@@ -231,7 +252,9 @@
       "talent": "Talento",
       "bird_ability": "Habilidad de pájaro",
       "armor": "Armadura",
-      "injury": "Herida crítica"
+      "injury": "Herida crítica",
+      "creature_attack": "Ataque de criatura",
+      "creature_ability": "Habilidad de criatura"
     }
   }
 }

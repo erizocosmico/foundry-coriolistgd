@@ -175,7 +175,29 @@
 
     "npc": {
       "equipment": "Equipment",
-      "no_description": "No description."
+      "no_description": "No description.",
+      "no_equipment": "No equipment."
+    },
+
+    "creature": {
+      "properties": "Properties",
+      "armor": "Armor",
+      "armor_rating": "Armor rating",
+      "size": "Size",
+      "ferocity": "Ferocity",
+      "attacks": {
+        "label": "Attacks",
+        "label_single": "Attack",
+        "base_dice": "Base dice",
+        "damage": "Damage",
+        "blight": "Blight",
+        "despair": "Despair",
+        "empty": "Creature has no attacks."
+      },
+      "abilities": {
+        "label": "Abilities",
+        "empty": "Creature has no abilities."
+      }
     },
 
     "rolls": {
@@ -231,7 +253,9 @@
       "talent": "Talent",
       "bird_ability": "Bird ability",
       "armor": "Armor",
-      "injury": "Critical injury"
+      "injury": "Critical injury",
+      "creature_attack": "Creature attack",
+      "creature_ability": "Creature ability"
     }
   }
 }

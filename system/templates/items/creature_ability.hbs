@@ -1,0 +1,23 @@
+<form class='{{cssClass}}' autocomplete='off'>
+  <header class='sheet-header'>
+    <img src='{{item.img}}' class='item-img' data-edit='img' title='{{item.name}}' />
+    <div class='field big'>
+      <input name='name' type='text' value='{{item.name}}' placeholder='{{loc "name"}}' />
+    </div>
+  </header>
+
+  <section>
+    <div class='field'>
+      <label>{{loc 'description'}}</label>
+      {{editor
+        content=systemData.description
+        target='system.description'
+        rollData=rollData
+        button=true
+        owner=owner
+        engine='prosemirror'
+        editable=editable
+      }}
+    </div>
+  </section>
+</form>

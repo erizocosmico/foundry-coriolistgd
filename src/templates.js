@@ -91,4 +91,14 @@ export function registerHandlebarsHelpers() {
         if (features.length === 0) return '';
         return `(${features.join(', ')})`;
     });
+
+    Handlebars.registerHelper('orElse', function (...args) {
+        for (let arg of args) {
+            if (arg !== null && arg !== undefined && arg !== '') return arg;
+        }
+    });
+
+    Handlebars.registerHelper('attackNumber', function (idx) {
+        return idx + 1;
+    });
 }

@@ -23,6 +23,7 @@ This system requires the `yze-combat` module, which will be installed with it.
 -   Rolls from character sheet.
 -   NPC sheet.
 -   Crew sheet.
+-   Creature sheet.
 
 ### System development
 
