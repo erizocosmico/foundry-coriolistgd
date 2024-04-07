@@ -1,6 +1,6 @@
 import {ID} from './config';
 import {localize} from './helpers/i18n';
-import {roll, rollArmor} from './rolls';
+import {roll, rollCreatureArmor} from './rolls';
 
 const ALLOWED_ITEMS = {
     character: ['gear', 'weapon', 'armor', 'talent', 'injury'],
@@ -434,7 +434,7 @@ export class CoriolisActorSheet extends ActorSheet {
 
     _onRollCreatureArmor(e) {
         e.preventDefault();
-        return rollArmor(this.actor, this.actor.system.armor);
+        return rollCreatureArmor(this.actor, this.actor.system.armor);
     }
 
     async _onRollCreatureRandomAttack(e) {

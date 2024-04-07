@@ -209,7 +209,9 @@
       "push": "Forzar tirada",
       "pushed": "La tirada ha sido forzada",
       "armor_fail": "Sin reducción de daño",
+      "armor_blight_fail": "Sin reducción de ruina",
       "armor_success": "daño reducido",
+      "armor_blight_success": "ruina reducida",
       "base": "Base",
       "gear": "Equipo",
       "item": "Objeto",
@@ -228,6 +230,11 @@
         },
         "select_actor": {
           "title": "Selecciona personaje"
+        },
+        "select_armor_type": {
+          "title": "Tirar protección contra",
+          "damage": "Daño",
+          "blight": "Ruina"
         }
       }
     },

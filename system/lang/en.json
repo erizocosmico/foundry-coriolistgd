@@ -210,7 +210,9 @@
       "push": "Push roll",
       "pushed": "Roll has been pushed",
       "armor_fail": "No damaged reduced",
+      "armor_blight_fail": "No blight reduced",
       "armor_success": "damage reduced",
+      "armor_blight_success": "blight reduced",
       "base": "Base",
       "gear": "Gear",
       "item": "Gear item",
@@ -229,6 +231,11 @@
         },
         "select_actor": {
           "title": "Select character"
+        },
+        "select_armor_type": {
+          "title": "Roll protection against",
+          "damage": "Damage",
+          "blight": "Blight"
         }
       }
     },

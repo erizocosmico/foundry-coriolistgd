@@ -2,6 +2,7 @@ import {createMessage} from './chat.js';
 import {ID} from './config.js';
 import addDiceModifiers from './dialogs/add-dice-modifiers.js';
 import selectActor from './dialogs/select-actor.js';
+import selectArmorMode from './dialogs/select-armor-mode.js';
 import selectAttribute from './dialogs/select-attribute.js';
 import {labelFor, localize} from './helpers/i18n';
 
@@ -115,14 +116,33 @@ export function registerDice3D(dice3d) {
     });
 }
 
-export async function rollArmor(actor, value, item = undefined) {
-    const roll = await new Roll(`${value}db`, {}).evaluate();
-    if (!item) {
-        item = {
-            type: 'armor',
-            name: `${localize('creature.armor')}`,
-        };
+export async function rollArmorItem(actor, item) {
+    let blightProtection = false;
+    let value = item.system.rating;
+    if (item.system.blight_protection) {
+        try {
+            const selected = await selectArmorMode();
+            if (selected === 'blight_protection') {
+                value = item.system.blight_protection;
+                blightProtection = true;
+            }
+        } catch {
+            return null;
+        }
     }
+
+    const roll = await new Roll(`${value}db`, {}).evaluate();
+    return await postRoll(actor, undefined, item, undefined, undefined, roll, {
+        blightProtection,
+    });
+}
+
+export async function rollCreatureArmor(actor, value) {
+    const roll = await new Roll(`${value}db`, {}).evaluate();
+    const item = {
+        type: 'armor',
+        name: `${localize('creature.armor')}`,
+    };
     return await postRoll(actor, undefined, item, undefined, undefined, roll);
 }
 
@@ -319,6 +339,7 @@ async function postRoll(
     baseMod = 0,
     gearMod = 0,
     roll,
+    options = {},
 ) {
     const numSuccesses = successes(roll);
 
@@ -338,6 +359,7 @@ async function postRoll(
     }
 
     const rollData = {
+        ...options,
         systemId: ID,
         isArmor: item?.type === 'armor',
         label: item ? item.name : localize('attributes', attribute, 'name'),

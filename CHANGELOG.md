@@ -1,5 +1,9 @@
 # Changelog
 
+### v0.5.3
+
+-   Add ability to select rolling armor rating or blight protection.
+
 ### v0.5.2
 
 -   Add clearer tooltips and icons for equipped gear.

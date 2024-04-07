@@ -1,6 +1,6 @@
 import {ID} from './config';
 import {localize} from './helpers/i18n';
-import {roll, rollArmor, rollBirdAbility, rollCreatureAttack} from './rolls';
+import {roll, rollArmorItem, rollBirdAbility, rollCreatureAttack} from './rolls';
 
 const MAX_WEAPONS_AT_HAND = 3;
 
@@ -43,7 +43,7 @@ export class CoriolisItem extends Item {
         if (!actor) return;
 
         if (this.type === 'armor') {
-            return await rollArmor(actor, this.system.rating, this);
+            return await rollArmorItem(actor, this);
         }
 
         if (this.type === 'bird_ability') {

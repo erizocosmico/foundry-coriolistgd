@@ -51,12 +51,21 @@
 
   {{#if isArmor}}
     {{#if fail}}
-      <div class='coriolis-roll-result coriolis-roll-fail'>{{loc 'rolls.armor_fail'}}</div>
+      {{#if blightProtection}}
+        <div class='coriolis-roll-result coriolis-roll-fail'>{{loc 'rolls.armor_blight_fail'}}</div>
+      {{else}}
+        <div class='coriolis-roll-result coriolis-roll-fail'>{{loc 'rolls.armor_fail'}}</div>
+      {{/if}}
     {{/if}}
 
     {{#if success}}
-      <div class='coriolis-roll-result coriolis-roll-success'>{{successes}}
-        {{loc 'rolls.armor_success'}}</div>
+      {{#if blightProtection}}
+        <div class='coriolis-roll-result coriolis-roll-success'>{{successes}}
+          {{loc 'rolls.armor_blight_success'}}</div>
+      {{else}}
+        <div class='coriolis-roll-result coriolis-roll-success'>{{successes}}
+          {{loc 'rolls.armor_success'}}</div>
+      {{/if}}
     {{/if}}
   {{else}}
     {{#if fail}}
