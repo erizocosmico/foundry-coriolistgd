@@ -92,15 +92,15 @@ export class CoriolisActor extends Actor {
 
     _updateStats(changes) {
         const attributes = {};
-        for (let a of Object.keys(this.data.system.attributes)) {
-            attributes[a] = this.data.system.attributes[a].value;
+        for (let a of Object.keys(this.system.attributes)) {
+            attributes[a] = this.system.attributes[a].value;
         }
 
         for (let a of Object.keys(changes.system.attributes)) {
             attributes[a] = changes.system.attributes[a].value;
         }
 
-        const {health, hope, heart} = this.data.system;
+        const {health, hope, heart} = this.system;
         changes.system = changes.system || {};
         changes.system.health = {};
         changes.system.health.max = attributes.strength + attributes.agility;

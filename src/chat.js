@@ -4,14 +4,18 @@ export async function createMessage(actor, template, rollData, roll = undefined)
     const chatData = {
         user: game.user.id,
         speaker: ChatMessage.getSpeaker({
-            alias: actor.data.name,
+            alias: actor.name,
             actor,
         }),
         type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-        roll,
+        rolls: [],
         rollMode: game.settings.get('core', 'rollMode'),
         content: html,
     };
+
+    if (roll) {
+        chatData.rolls.push(roll);
+    }
 
     if (['gmroll', 'blindroll'].includes(chatData.rollMode)) {
         chatData.whisper = ChatMessage.getWhisperRecipients('GM');

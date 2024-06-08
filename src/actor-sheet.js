@@ -30,7 +30,11 @@ export class CoriolisActorSheet extends ActorSheet {
                 options.width = 580;
                 options.height = 580;
                 options.tabs = [
-                    {navSelector: '.sheet-tabs', contentSelector: '.sheet-body', initial: 'crew'},
+                    {
+                        navSelector: '.sheet-tabs',
+                        contentSelector: '.sheet-body',
+                        initial: 'crew',
+                    },
                 ];
                 break;
             case 'npc':

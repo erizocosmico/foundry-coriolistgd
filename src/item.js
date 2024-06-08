@@ -17,9 +17,9 @@ export class CoriolisItem extends Item {
 
     _preUpdate(changes, ...args) {
         const actor = this.parent;
-        switch (this.data.type) {
+        switch (this.type) {
             case 'weapon':
-                if (changes?.system?.at_hand && this.data.system.equipped) {
+                if (changes?.system?.at_hand && this.system.equipped) {
                     changes.system.equipped = false;
                 }
 

@@ -1,5 +1,9 @@
 # Changelog
 
+### v0.5.4
+
+-   Foundry V12 compatibility.
+
 ### v0.5.3
 
 -   Add ability to select rolling armor rating or blight protection.
