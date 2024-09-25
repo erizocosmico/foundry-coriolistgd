@@ -336,7 +336,7 @@ export class CoriolisActorSheet extends ActorSheet {
     _onToggleCondition(e) {
         e.stopPropagation();
         const key = e.currentTarget.dataset.attribute;
-        const attr = this.actor.data.system.attributes[key];
+        const attr = this.actor.system.attributes[key];
         if (!attr) return;
 
         this.actor.update({[`system.attributes.${key}.condition`]: !attr.condition});
@@ -374,9 +374,9 @@ export class CoriolisActorSheet extends ActorSheet {
         e.preventDefault();
         let newValue = Number(e.currentTarget.dataset.value);
         const stat = e.currentTarget.dataset.stat;
-        if (!this.actor.data.system[stat]) return;
+        if (!this.actor.system[stat]) return;
 
-        const {value, max} = this.actor.data.system[stat];
+        const {value, max} = this.actor.system[stat];
         if (value === 1 && newValue === 1) {
             newValue = 0;
         }
