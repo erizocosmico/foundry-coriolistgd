@@ -215,6 +215,12 @@
                   <i class='fa fa-shirt'></i>
                 </div>
               {{/if}}
+
+              {{#if g.system.equipped}}
+                <div class='item-status' title='{{loc "gear.equipped"}}'>
+                  <i class='fa fa-suitcase'></i>
+                </div>
+              {{/if}}
             </div>
           </div>
         </div>
@@ -232,6 +238,16 @@
           >
             <i class='fa fa-{{ifThen g.system.worn "xmark" "shirt"}}'></i>
           </button>
+          {{#unless g.system.worn}}
+            <button
+              class='item-action toggle-item'
+              data-prop='equipped'
+              data-id='{{g._id}}'
+              title='{{ifThen g.system.equipped (loc "gear.unequip") (loc "gear.equip")}}'
+            >
+              <i class='fa fa-{{ifThen g.system.equipped "xmark" "suitcase"}}'></i>
+            </button>
+          {{/unless}}
           <button class='item-action show-item' data-type='gear' data-id='{{g._id}}' title='{{loc "post_to_chat"}}'>
             <i class='fa fa-comment'></i>
           </button>

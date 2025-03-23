@@ -19,8 +19,12 @@ export class CoriolisItem extends Item {
         const actor = this.parent;
         switch (this.type) {
             case 'weapon':
+                // Remove from equipped when it's changed to at hand and add to equipped when removed
+                // from at hand.
                 if (changes?.system?.at_hand && this.system.equipped) {
                     changes.system.equipped = false;
+                } else if (changes?.system?.at_hand === false && !this.system.equipped) {
+                    changes.system.equipped = true;
                 }
 
                 if (changes?.system?.at_hand && actor) {
@@ -31,6 +35,15 @@ export class CoriolisItem extends Item {
                         ui.notifications.error(localize('errors.max_weapons_at_hand'));
                         return false;
                     }
+                }
+                break;
+            case 'armor':
+                // Remove from equipped when it's changed to worn and add to equipped when removed
+                // from worn.
+                if (changes?.system?.worn && this.system.equipped) {
+                    changes.system.equipped = false;
+                } else if (changes?.system?.worn === false && !this.system.equipped) {
+                    changes.system.equipped = true;
                 }
                 break;
         }
